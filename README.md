@@ -28,4 +28,5 @@ NOTE! Skip step 1 if you are a MacOS user.
 
 ## Start Your Applications
 `cd core`
+<br>
 `./app APP_NAME`

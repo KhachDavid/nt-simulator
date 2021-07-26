@@ -8,6 +8,4 @@ INSTALLED_APPS = [
 
     # custom apps
     'base',
-    'new_app',
-    'test_app',
 ]

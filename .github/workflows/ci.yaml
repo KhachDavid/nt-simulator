@@ -8,5 +8,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Run Django Unit Tests
       run: 
+        sudo pip3 install --upgrade pip
+        sudo pip3 install virtualenv
         pip3 install -r requirements.txt
         python3 manage.py test

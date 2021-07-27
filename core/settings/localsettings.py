@@ -1,9 +1,11 @@
 from pathlib import Path
 import os
-from .installed_apps import * 
+from .installed_apps import *
+
+print("Developement settings activated")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -13,10 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@!0qt^!=r48#8wxn)we7clc64yd0x*i7kk_3arred^1r)&wpr3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-try:
-    DEBUG = os.environ['DEBUG_VALUE']
-except Exception:
-    DEBUG = True
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -104,8 +103,3 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Add HTTPS 
-if os.getcwd() == '/app':
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    SECURE_SSL_REDIRECT = True

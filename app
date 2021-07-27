@@ -5,8 +5,9 @@ python manage.py startapp $1
 # Create urls.py for the new app
 touch $1/urls.py
 echo "from django.urls import path" >> $1/urls.py
+echo "from django.views.generic import TemplateView" >> $1/urls.py
 printf "from .views import *\n\n" >> $1/urls.py
-printf "urlpatterns = [\n\n]" >> $1/urls.py
+printf "urlpatterns = [\n    path('', TemplateView.as_view(template_name='$1/index.html'), name='$1_index'),\n]" >> $1/urls.py
 
 # Link new app urls.py with the main urls.py of the core application
 tail -n 1 "core/urls.py" | wc -c | xargs -I {} truncate "core/urls.py" -s -{}
@@ -49,7 +50,7 @@ printf "\n" >> $1/templates/$1/index.html
 
 echo "<!-- Actual content of index.html -->" >> $1/templates/$1/index.html
 echo "{% block content %}" >> $1/templates/$1/index.html
-printf "\n" >> $1/templates/$1/index.html
+printf "    <p style=\"text-align: center; margin: 5rem;\">$1 app was created</p>\n" >> $1/templates/$1/index.html
 echo "{% endblock content %}" >> $1/templates/$1/index.html
 
 # Add Static

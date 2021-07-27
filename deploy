@@ -9,7 +9,7 @@ printf "\n\n"
 fi
 
 printf "Collecting Static Files"
-python3 core/manage.py collectstatic
+python3 manage.py collectstatic
 printf "\n\n"
 
 printf "Adding git files"
@@ -36,7 +36,7 @@ then
 	printf "\n\n"
 	
 	printf "Applying Migrations"
-	heroku run python3 core/manage.py migrate
+	heroku run python3 manage.py migrate
 
 	printf "\n\n"
 	printf "Turning off maintenance mode!"

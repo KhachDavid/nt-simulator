@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# check if $1 directory exists
+if [ -d "$1" ]; then
+    echo "This app already exists"
+    exit 1
+fi
+
 python manage.py startapp $1
 
 # Create urls.py for the new app
@@ -16,15 +22,16 @@ printf "    path('$1/', include('$1.urls')),\n" >> core/urls.py
 printf "]" >> core/urls.py
 
 # Add the new app to the installed apps list
-tail -n 1 "core/installed_apps.py" | wc -c | xargs -I {} truncate "core/installed_apps.py" -s -{}
+tail -n 1 "core/settings/installed_apps.py" | wc -c | xargs -I {} truncate "core/settings/installed_apps.py" -s -{}
 
-printf "    '$1',\n" >> core/installed_apps.py
-printf "]" >> core/installed_apps.py
+printf "    '$1',\n" >> core/settings/installed_apps.py
+printf "]" >> core/settings/installed_apps.py
 
 # Create better testing files for the new app
 rm $1/tests.py
 
 mkdir $1/tests
+touch $1/tests/__init__.py
 touch $1/tests/test.py
 touch $1/tests/test_views.py
 touch $1/tests/test_models.py

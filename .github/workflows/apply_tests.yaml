@@ -1,19 +1,25 @@
 name: Testing
 on: push
-#
+
+
 jobs:
   test_project:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Run Django Unit Tests
-      run: 
-        sudo apt-get update -y
-        
-        sudo apt-get install -y python3-apt
 
+    - name: Give permission to run the tests
+      run: 
+        chmod u+x test
+
+    - name: Give permission to install dependencies
+      run:
         chmod u+x build
+
+    - name: Install Dependencies
+      run: 
         ./build
 
-        chmod u+x test
+    - name: Run The Tests
+      run: 
         ./test

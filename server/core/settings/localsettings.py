@@ -1,6 +1,10 @@
 from pathlib import Path
 import os
 from .installed_apps import *
+import environ
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 print("Developement settings activated")
 
@@ -55,8 +59,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USERNAME'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST': env('DATABASE_HOST'),
+        'PORT': env('DATABASE_PORT'),
     }
 }
 

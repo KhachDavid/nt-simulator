@@ -10,16 +10,16 @@ jobs:
 
     - name: Give permission to run the tests
       run: 
-        chmod u+x test
+        chmod u+x server/test
 
     - name: Give permission to install dependencies
       run:
-        chmod u+x build
+        chmod u+x server/build
 
     - name: Install Dependencies
       run: 
-        ./build
+        ./server/build
 
     - name: Run The Tests
       run: 
-        ./test
+        ./server/test

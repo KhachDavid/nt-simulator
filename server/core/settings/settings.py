@@ -1,5 +1,6 @@
 import os
-from .installed_apps import * 
+from .installed_apps import *
+from .cors_origins import * 
 from .storage import *
 import environ
 

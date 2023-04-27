@@ -1,0 +1,555 @@
+Yaw Simões
+Pedro lucas Badu
+Joaquim Morais
+Fernando Viana
+Joshua Appiah
+Igor Macedo
+Márcio Adutwum
+Gabriel Antwi
+Marcelo Amponsah
+Matthew Cunha
+Thomas Twumasi
+Nigel Loureiro
+José Cardoso
+Martin Brito
+Theo Martins
+Isaac Paiva
+Igor Melo
+Duncan Nunes
+Leonardo Da costa
+André Silveira
+Matheus Almeida
+Harry Morais
+André Baawia
+Adam Asiama
+Christian Da mota
+Augusto Fofie
+Wilson Akyerεko
+Bernardo Torres
+Rafael Lopes
+André Otuo
+Ismael Rocha
+Renan Azevedo
+João Nogueira
+João Correia
+Aaron Martins
+Leandro Macedo
+Bruno Moreira
+Graham Martins
+Kwesi Gomes
+Jonathan Da rocha
+Carl Freitas
+Isaac Da rosa
+Rodrigo Melo
+Francisco Appiah
+Adrian Monteiro
+Tomé Agyapong
+Filipe Adutwum
+Eduardo Mensa
+Dinis Asiama
+Calebe Faria
+Lucas Moura
+Leandro Ferreira
+Lucas Gomes
+Vinicius Caldeira
+Akwesi Melo
+Thomas Rodrigues
+Isaac Correia
+Daniel Cunha
+Pedro henrique Oliveira
+José Lopes
+Malcolm Obeng
+Simão Reis
+Joe Ofosu
+Akwesi Da conceição
+Gustavo henrique Costela
+Yago Kusi
+Felipe Carneiro
+Augusto Agyei
+Cláudio Ribeiro
+Samuel Brito
+Cristiano Silva
+Emanuel Ramos
+Shaun Da rocha
+Carl Ramos
+Mathew Jesus
+Frederico Amo
+Nuno Agyei
+Fernando Mensa
+Vicente Da luz
+Mário Amaral
+Douglas Da paz
+Michael Agyemang
+Pedro miguel Mendes
+Afonso Fosu
+Luigi Ribeiro
+Brian Melo
+Miguel Silva
+Kojo Yirenkyi
+Carlos Aragão
+Benjamin Twumasi
+Steven Twumasi
+Heitor Koomson
+Davi lucca Lima
+Ivan Gonçalves
+Henrique Sales
+Samuel Oliveira
+João vitor Okyere
+Thales Costela
+Mauro Nsia
+Arthur Donkor
+João lucas Nascimento
+Luiz miguel Farias
+Xavier Costa
+Marcos vinicius Rodrigues
+Heitor Pinto
+Mathew Kyei
+Gregory Da cunha
+Rodrigo Rezende
+Otávio Freitas
+César Pereira
+Gustavo henrique Miranda
+Benjamin Cunha
+Gil Freitas
+Paulo Henriques
+Albert Kyei
+Joshua Machado
+Vincent Pereira
+Calebe Amaral
+Patrick Amoa
+Guilherme Ampadu
+Gabriel Nsia
+Leonardo Fosu
+Henry Gonçalves
+Noah Faria
+Fernando Figueiredo
+James Adutwum
+Sebastião Barbosa
+Kwamena Nyaako
+Malcolm Baawia
+Robert Oliveira
+Kojo Guerreiro
+José Cruz
+Miguel Soares
+Vitor gabriel Caldeira
+Wilson Yeboa
+Pedro miguel Cardoso
+Brian Fosu
+Benjamim Okyere
+Josiah Ata
+Benjamin Omani
+Marco Yirenkyi
+Rodrigo Carvalho
+Jacob Carvalho
+Kwame Nkansa
+Davi lucas Mendes
+Henrique Costa
+Nelson Moura
+Gordon Da luz
+Adam Baptista
+Danilo Baptista
+Martin Souza
+Leandro Amponsah
+Sebastião Tawia
+Ryan Darko
+Luiz otávio Azevedo
+Renato Assunção
+Akwesi Fernandes
+Gustavo Caldeira
+Bryan Mensah
+Robert Da costa
+Gil Donkor
+Jaime Lourenço
+Raul Pacheco
+Joojo Costa
+Renan Cunha
+Levi Branco
+Frederick Campos
+Simon Ampadu
+Cristiano Sá
+Sam Porto
+Ivo Correia
+Vinicius Twumasi
+Joe Gyamfi
+Eduardo Magalhães
+Simão Abreu
+Philip Monteiro
+Bryan Bonsu
+Alexandre Afirifa
+Gabriel Moura
+Martim Matias
+Leandro Mensah
+Ricardo Das neves
+Kwaku Da cruz
+Guilherme Alves
+Pedro miguel Amaral
+James Pacheco
+Noah Macedo
+Simon Afoakwa
+Mateus Brito
+Vicente Ankra
+Matthew Costela
+João Borges
+Diego Boadu
+Otávio Ampofo
+George Castro
+Aaron Kwaakye
+Isaac Afoakwa
+Bernardo Cardoso
+Arthur Pires
+Juan Azevedo
+Xavier Gaspar
+Diogo Monteiro
+Mateus Tutu
+Jorge Henriques
+João felipe Teixeira
+Diego Rezende
+Russell Moura
+Benjamin Okyere
+Theo Correia
+Albert Cavalcanti
+Lisandro Pinto
+Erick Farias
+Joel Nyaako
+Shaun Souza
+Julian Amoasi
+Ian Teixeira
+Samuel Mendes
+Pedro Cavalcanti
+Salvador Morais
+Joojo Sá
+Bernard Fonseca
+Benjamin Donkor
+Jeffrey Vaz
+Joshua Antwi
+Tiago Quartey
+João Nascimento
+James Nascimento
+Edgar Vaz
+Christian Vieira
+Renan Badu
+Luiz fernando Borges
+Murilo Ampofo
+Eduardo Leite
+Micael Martins
+Shaun Cruz
+Jaime Fogaça
+João miguel Gonçalves
+Afonso Ferreira
+Brian Barros
+Benjamin Ferreira
+Kévim Asante
+Akwasi Costela
+Gonçalo Quartey
+Salvador Akoto
+Joe Torres
+Samuel Quartey
+António Rodrigues
+Lawrence Da mata
+Josiah Coelho
+Nelson Wiafe
+Benício Safo
+Enzo Otiwa
+Noah Porto
+João felipe Carneiro
+Noa Campos
+Gustavo Ramos
+Vitor Jesus
+Renato Sá
+Nicholas Asenso
+Rafael Farias
+Bryan Carvalho
+Guilherme Nunes
+Frank Teixeira
+Micael Fernandes
+Luiz felipe Duah
+Denis Oliveira
+Davi Ampofo
+Donald Valente
+Kévim Campos
+Kwadwo Nogueira
+Ângelo Agyemang
+Thiago Fosu
+Max Otiwa
+Marcos vinicius Gonçalves
+Tomás Boahen
+Kweku Ofosu
+Pedro lucas Melo
+Gabriel Nyantakyi
+Rodrigo Cunha
+Noa Obeng
+Leandro Barros
+Leandro Gomes
+Enzo Rodrigues
+Marcos vinicius Ofosu
+Frederico Oliveira
+Gustavo Gonçalves
+Levi Carneiro
+Victor Monteiro
+Anthony Da mata
+Luiz henrique Santos
+Patrick Ribeiro
+Luca Akowua
+George Vieira
+Samuel Boadu
+Samuel Wiafe
+Miguel Jesus
+Eduardo Mota
+Noah Lima
+Nicholas Twumasi
+Eduardo Kwarteng
+Danilo Alves
+João felipe Cardoso
+André Faria
+José Loureiro
+Richard Ferreira
+Thiago Martins
+Denis Ampofo
+Denis Agyei
+Kwasi Akoto
+Edward Almeida
+Ricardo Adusei
+Justin Guerreiro
+Simon Rezende
+Leonardo Campos
+Russell Afirifa
+Edward Ntiamoa
+Aaron Adusei
+Cláudio Pinho
+João guilherme Vieira
+Arthur Carneiro
+Jake Agyapong
+Roger Awuah
+Leonardo Gonçalves
+Leandro Appia
+Davi lucas Agyemang
+João guilherme Baawia
+Valentim Pires
+Denis Silva
+Vasco Quartey
+Edgar Fogaça
+Kweku Monteiro
+Paulo Rezende
+Augusto Campos
+Sandro Castro
+Cauê Antwi
+Karl Farias
+José Lopes
+Tomé Sales
+Tiago Pinto
+Thomas Miranda
+Kwamena Agyei
+Davi lucas Prempeh
+Luigi Machado
+Artur Martins
+Pedro Anjos
+Mauro Amorim
+Rui Nascimento
+Yaw Da mota
+Antony Prempeh
+Leonardo Asiama
+Harry Caldeira
+Xavier Fonseca
+Marcelo Karikari
+Henrique Asiedu
+Vítor Rezende
+Isaac Da rocha
+Jacob Vaz
+Rui Da mata
+Robert Da mata
+Kaique Paiva
+Sebastião Tavares
+Vitor Moraes
+Denis Nti
+Márcio Fernandes
+Pedro lucas Sarpong
+Shaun Caldeira
+Marcelo Lopes
+Luiz miguel Oliveira
+Gil Aragão
+Pedro lucas Faria
+Diego Viana
+José Viana
+Dinis Martins
+Luigi Costa
+Cristiano Moreira
+Russell Pereira
+Nathan Borges
+Ronald Da mata
+Renan Sales
+Vasco Costa
+Vitor hugo Ntim
+Manuel Campos
+Thales Morais
+Kwadwo Agyei
+Jorge Nti
+Adrian Dwamena
+Terence Andorful
+Noah Baafi
+Fernando Carvalho
+Fernando Henriques
+Antony Morais
+Denis Caldeira
+Bryan Akyerεko
+Roger Da rocha
+Philip Melo
+Luiz miguel Matias
+Timothy Pires
+Joaquim Amo
+Joaquim Paiva
+Paul Ntim
+Benjamin Bonsu
+Benjamim Reis
+Francisco Azevedo
+Noah Pereira
+Kweku Pires
+Stephen Otuo
+Jeffrey Das neves
+Danny Souza
+Ekow Asiama
+Akwasi Nkansah
+Lorenzo Ofori
+Arthur Nyame
+Josh Vicente
+Isaac Da cruz
+Akwasi Prempeh
+Aaron Macedo
+Heitor Teixeira
+Ronald Assunção
+Ben Das neves
+Murilo Reis
+Levi Akowua
+Guilherme Da mata
+William Ramos
+Antônio Oliveira
+Eduardo Ampadu
+Kenneth Santos
+Carl Antwi
+Tomé Afoakwa
+Raul Gyasi
+Dennis Monteiro
+Martim Boateng
+Isaac Agyare
+Robert Garcia
+Ekow Figueiredo
+Bernardo Vieira
+João guilherme Jesus
+Marcelo Oppong
+Afonso Neves
+Kweku Twumasi
+Erick Costela
+Marcos Alves
+Stephen Rodrigues
+Mário Boadu
+Kevin Ferreira
+Kofi Valente
+Luiz miguel Pires
+Fábio Baa
+Arthur Akoto
+Denis Nunes
+Luca Darko
+Jonathan Koomson
+Matthew Silveira
+Vicente Jesus
+Joe Omani
+Russell Esteves
+Alexandre Mensa
+Vitor hugo Torres
+Augusto Nogueira
+Vitor Okyere
+William Ntim
+Daniel Mendes
+Cláudio Nti
+Lourenço Melo
+Pedro lucas Da mata
+Juan Pereira
+Russell Reis
+Hugo Moreira
+Matias Ampadu
+Kevin Da mota
+Artur Appiah
+André Oliveira
+Dominic Castro
+Ismael Carvalho
+Luiz felipe Moreira
+Pedro Costela
+Pedro Rodrigues
+Lucas gabriel Bona
+Joshua Teixeira
+João miguel Fernandes
+Murilo Abreu
+Theo Ribeiro
+Manuel Yeboah
+Lorenzo Da conceição
+Leandro Nunes
+Nathan Ferreira
+Robert Cardoso
+Augusto Kusi
+Murilo Nascimento
+Murilo Novaes
+Abeiku Novaes
+Noah Oliveira
+Richard Viana
+John Appia
+Manuel Adomah
+Sérgio Owusu
+Diego Castro
+Harry Cardoso
+Dinis Nunes
+Kwaku Agyapong
+Joel Domingues
+Derrick Garcia
+Enzo Nkansah
+Danilo Duarte
+Joseph Rocha
+Valentim Sousa
+Pietro Faria
+Cauã Barbosa
+Phillip Mensah
+Mauro Adomako
+Isaac Kyei
+Guilherme Brito
+Renato Figueiredo
+Theo Rodrigues
+Pietro Baafi
+Joseph Cardoso
+Vicente Opoku
+Nathan Antwi
+João gabriel Barros
+Alexander Nascimento
+Augusto Farias
+Bruce Cruz
+Guilherme Daako
+Bernardo Aragão
+João lucas Loureiro
+Joaquim Ferreira
+Kaique Otiwa
+Benício Fonseca
+Marcos Mendes
+Jorge Mota
+Alex Branco
+Steven Marques
+Abeiku Afoakwa
+Fiifi Darko
+Josiah Prempeh
+Alexandre Cunha
+Yago Santos
+Adrian Ofori
+Fernando Nogueira
+César Leite
+Philip Wiafe
+Igor Cardoso
+Murilo Cavalcanti
+Leonardo Sales
+Luigi Azevedo
+Daniel Alves
+David Omani
+Matheus Gonçalves
+João gabriel Boaten
+Pedro henrique Araújo
+Cauê Araújo
+Pietro Santos
+Miguel Araújo
+Luke Cunha
+Pedro lucas Carvalho
+Levi Baawia

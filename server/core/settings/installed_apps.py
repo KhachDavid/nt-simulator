@@ -8,4 +8,5 @@ INSTALLED_APPS = [
 
     # custom apps
     'base',
+    'corsheaders',
 ]

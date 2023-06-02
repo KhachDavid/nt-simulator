@@ -12,53 +12,95 @@ The component implements the Levenshtein distance algorithm to find the closest 
 The component also defines a constant named PAGINATION_SIZE, which is used to define the number of countries displayed per page. The component uses the alphabet array to split the list of countries by the first letter of their name. The filteredCountries variable holds the list of countries that match the search term or that belong to the selected page. The closestMatch variable holds the closest match to the user's search term.
 */
 
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import Navbar from "../../components/NavBar";
+import React, { useEffect, useMemo, useState } from "react";
 import { connect } from "react-redux";
-import { ModalContext } from "../../components/ModalProvider";
 import NavBar from "../../components/NavBar";
 import Page from "../../components/Page";
-import { getNations } from "../../store/sagas/selectors";
+import { getNations, getContinents } from "../../store/sagas/selectors";
 import { useDispatch } from "react-redux";
-import { fetchPaginatedResultsRequest } from "../../store/actions/nation.action";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-  TextField,
-  InputAdornment,
-  Typography,
-} from "@mui/material";
+  fetchPaginatedResultsRequest,
+  getNationsRequest,
+  getContinentsRequest,
+} from "../../store/actions/nation.action";
+import Pagination from "../../components/Pagination";
+import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import SearchIcon from "@mui/icons-material/Search";
-import CloseIcon from "@mui/icons-material/Close";
 import EnhancedTable from "../../components/EnhancedTable";
+import { getCharactersFromString } from "./util";
 
-const PAGINATION_SIZE = 5;
+const MAX_ROWS_PER_PAGE = 50;
 const COLUMN_TO_EXCLUDE = ["uid"];
 
 export const Teams = (props) => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const nations = props.nations;
-  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [continentFilter, setContinentFilter] = useState("All");
+
+  useEffect(() => {
+    // dispatch both actions at the same time to get the data faster
+    dispatch(getNationsRequest());
+    dispatch(getContinentsRequest());
+
+    return () => {
+      // cleanup
+      window.filteredNationsLength = 0;
+    };
+  }, [dispatch]);
 
   const onRowClick = (nation) => {
-    dispatch(fetchPaginatedResultsRequest(nation.Country, 1));
-    navigate("/teams/" + nation.Country, {
+    let actualNation = getCharactersFromString(nation.Country);
+
+    // make nation country be actualNation
+    nation.Country = actualNation;
+
+    dispatch(fetchPaginatedResultsRequest(actualNation, 1));
+    navigate("/teams/" + actualNation, {
       state: { team: nation },
     });
   };
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
+  const handlePageClick = (event, page) => {
+    setCurrentPage(event);
   };
+
+  // use memo run first time and then only when the dependencies change
+  const filteredNations = useMemo(() => {
+    // filter by continent
+    let filteredNations = nations.filter((nation) => {
+      if (continentFilter === "All") {
+        return true;
+      }
+
+      return nation.Continent === continentFilter;
+    });
+
+    // keep a reference of the filtered nations length before we slice it for pagination
+    const filteredNationsLength = filteredNations.length;
+    window.filteredNationsLength = filteredNationsLength;
+
+    // filter by page
+    filteredNations = filteredNations.slice(
+      (currentPage - 1) * MAX_ROWS_PER_PAGE,
+      (currentPage - 1) * MAX_ROWS_PER_PAGE + MAX_ROWS_PER_PAGE
+    );
+
+    return filteredNations;
+  }, [nations, currentPage, continentFilter]);
+
+  // if nations is empty, return null
+  if (nations.length === 0) {
+    return (
+      <Page title="Teams">
+        <NavBar />
+        <Typography variant="h1">Teams</Typography>
+        <Typography variant="h2">Loading...</Typography>
+      </Page>
+    );
+  }
 
   /* get properties of the first nation */
   let columns = Object.keys(nations[0]).map((key) => ({
@@ -72,222 +114,91 @@ export const Teams = (props) => {
   /* remove uid from columns */
   columns = columns.filter((column) => !COLUMN_TO_EXCLUDE.includes(column.id));
 
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-  const [currentPage, setCurrentPage] = useState(0);
-
-  const onPageChange = (page) => {
-    setCurrentPage(page);
-  };
-
-  const levensteinDistance = (s1, s2) => {
-    if (s1.length === 0) return s2.length;
-    if (s2.length === 0) return s1.length;
-
-    let v0 = new Array(s2.length + 1);
-    let v1 = new Array(s2.length + 1);
-
-    for (let i = 0; i < v0.length; i++) {
-      v0[i] = i;
-    }
-
-    for (let i = 0; i < s1.length; i++) {
-      v1[0] = i + 1;
-
-      for (let j = 0; j < s2.length; j++) {
-        let cost = s1[i] === s2[j] ? 0 : 1;
-        v1[j + 1] = Math.min(v1[j] + 1, v0[j + 1] + 1, v0[j] + cost);
-      }
-
-      for (let j = 0; j < v0.length; j++) {
-        v0[j] = v1[j];
-      }
-    }
-    return v1[s2.length];
-  };
-
-  let filteredCountries;
-
-  // don't paginate if we're searching
-  if (searchTerm) {
-    filteredCountries = nations.filter((country) => {
-      return country.Country.toLowerCase().includes(searchTerm.toLowerCase());
-    });
-  } else {
-    filteredCountries = nations.filter((country) => {
-      const start = alphabet[Math.floor((currentPage * 26) / PAGINATION_SIZE)];
-      const end =
-        alphabet[Math.floor(((currentPage + 1) * 26) / PAGINATION_SIZE) - 1];
-      return (
-        country.Country.charAt(0) >= start && country.Country.charAt(0) <= end
-      );
-    });
-  }
-  let closestMatch = nations[0];
-
-  if (searchTerm && filteredCountries.length === 0) {
-    // find the closest match
-    let closestDistance = levensteinDistance(
-      searchTerm.toLowerCase(),
-
-      closestMatch.Country.toLowerCase()
-    );
-    for (let i = 1; i < nations.length; i++) {
-      const distance = levensteinDistance(
-        searchTerm.toLowerCase(),
-        nations[i].Country.toLowerCase()
-      );
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestMatch = nations[i];
-      }
-    }
-  }
-
   return (
     <Page>
-      <div>
-        <NavBar />
-        {/* Show nations */}
-        <Paper>
-          <div
-            style={{ display: "flex", flexDirection: "column", height: "100%" }}
-          >
-            <div style={{ flex: "1 1 auto", overflowY: "auto" }}>
-              <div
-                style={{
-                  display: "flex",
-                  // place it at the right side
-                  justifyContent: "flex-start",
-                  alignItems: "center",
-                  mb: "16px",
-                  px: "16px",
-                  backgroundColor: "#FFF",
-                  paddingTop: "16px",
-                  paddingBottom: "16px",
-                  paddingLeft: "16px",
-                }}
-              >
-                <TextField
-                  label="Search Teams"
-                  variant="outlined"
-                  size="small"
-                  value={searchTerm}
-                  sx={{
-                    width: "100%",
-                    maxWidth: "300px",
-                    mr: "16px",
-                    mb: "16px",
-                    /* add margin and padding between component */
-                  }}
-                  onChange={handleSearchChange}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon />
-                      </InputAdornment>
-                    ),
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <div
-                          onClick={() => setSearchTerm("")}
-                          style={{
-                            cursor: "pointer",
-                            // center
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            // make it a circle
-                            borderRadius: "50%",
+      <Navbar />
 
-                            // add hover effect
-                            "&:hover": {
-                              backgroundColor: "#E0E0E0",
-                            },
-
-                            // add active effect
-                            "&:active": {
-                              backgroundColor: "#BDBDBD",
-                            },
-                          }}
-                        >
-                          <CloseIcon />
-                        </div>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </div>
-
-              <TableContainer>
-                <Table stickyHeader aria-label="sticky table">
-                  <TableHead>
-                    {filteredCountries.length === 0 ? (
-                      <TableRow>
-                        <TableCell>
-                          {searchTerm && (
-                            <div>
-                              <Typography
-                                color="primary"
-                                style={{ cursor: "pointer" }}
-                                onClick={() =>
-                                  setSearchTerm(closestMatch.Country)
-                                }
-                              >
-                                Did you mean <i>{closestMatch.Country}?</i>
-                              </Typography>
-                            </div>
-                          )}
-                        </TableCell>
-                      </TableRow>
-                    ) : (
-                      <EnhancedTable
-                        rows={filteredCountries}
-                        columns={columns}
-                        onRowClick={onRowClick}
-                      />
-                    )}
-                  </TableHead>
-                </Table>
-              </TableContainer>
-            </div>
-          </div>
-          <div
+      {/* Render continents as filter buttons */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "left",
+          gap: "16px",
+          padding: "16px 0",
+        }}
+      >
+        {props.continents.map((continent) => (
+          <button
+            key={continent}
+            onClick={() => {
+              if (continentFilter === continent) {
+                setContinentFilter("All");
+                setCurrentPage(1);
+                return;
+              }
+              // set the filter
+              setCurrentPage(1);
+              setContinentFilter(continent);
+            }}
             style={{
-              position: "sticky",
-              bottom: 0,
-              display: "flex",
-              justifyContent: "center",
-              gap: "16px",
-              py: "16px",
-              backgroundColor: "#FFF",
+              backgroundColor:
+                continentFilter === continent ? "#3f51b5" : "#FFF",
+              color: continentFilter === continent ? "#FFF" : "#3f51b5",
+              border: "1px solid #3f51b5",
+              borderRadius: "5px",
+              // make them bigger
+              padding: "8px 16px",
+              // make them bold
+              fontWeight: "bold",
+
+              "&:hover": {
+                backgroundColor: "#3f51b5",
+                color: "#FFF",
+                
+                // change the mouse to pointer
+                cursor: "pointer",
+                position: "relative",
+              },
+
+              "&:focus": {
+                outline: "none",
+              },
             }}
           >
-            {searchTerm === "" &&
-              Array.from({ length: PAGINATION_SIZE }, (_, i) => {
-                const start = alphabet[Math.floor((i * 26) / PAGINATION_SIZE)];
-                const end =
-                  alphabet[Math.floor(((i + 1) * 26) / PAGINATION_SIZE) - 1];
-                const isActive = currentPage === i;
+            {continent}
+          </button>
+        ))}
+      </div>
 
-                return (
-                  <Button
-                    key={i}
-                    variant={isActive ? "contained" : "outlined"}
-                    onClick={() => onPageChange(i)}
-                    sx={{
-                      py: "12px",
-                      px: "24px",
-                      m: "8px",
-                      borderRadius: "8px",
-                      backgroundColor: isActive ? "#3f51b5" : "#fff",
-                    }}
-                  >
-                    {`${start}-${end}`}
-                  </Button>
-                );
-              })}
-          </div>
-        </Paper>
+      <EnhancedTable
+        rows={filteredNations}
+        columns={columns}
+        onRowClick={onRowClick}
+        preSort={false}
+      />
+
+      <div
+        style={{
+          position: "sticky",
+          bottom: 0,
+          display: "flex",
+          justifyContent: "center",
+          gap: "16px",
+          py: "16px",
+          backgroundColor: "#FFF",
+        }}
+      >
+        <Pagination
+          page={currentPage}
+          totalPages={
+            // based on continent filter
+            continentFilter === "All"
+              ? Math.ceil(nations.length / MAX_ROWS_PER_PAGE)
+              : Math.ceil(window.filteredNationsLength / MAX_ROWS_PER_PAGE)
+          }
+          onChangePage={handlePageClick}
+          rowsPerPage={10}
+        />
       </div>
     </Page>
   );
@@ -297,6 +208,7 @@ Teams.propTypes = {};
 
 const mapStateToProps = (state) => ({
   nations: getNations(state),
+  continents: getContinents(state),
 });
 
 const mapDispatchToProps = {

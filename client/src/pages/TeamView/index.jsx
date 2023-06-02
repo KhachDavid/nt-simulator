@@ -13,9 +13,10 @@ import {
   getCurrentPage,
 } from "../../store/sagas/selectors";
 import { useDispatch } from "react-redux";
-import { fetchPaginatedResultsRequest } from "../../store/actions/nation.action";
+import { fetchPaginatedResultsRequest, resetPlayers } from "../../store/actions/nation.action";
 import EnhancedTable from "../../components/EnhancedTable";
 import Pagination from "../../components/Pagination";
+import { getCountryFlag } from "../Teams/util";
 
 const COLUMN_TO_EXCLUDE = ["uid", "page"];
 
@@ -26,6 +27,13 @@ export const TeamView = (props) => {
   const { team } = state;
   const dispatch = useDispatch();
 
+  // on unmount, reset the current page to 1
+  useEffect(() => {
+    return () => {
+      dispatch(resetPlayers());
+    };
+  }, [dispatch, team.Country]);
+
   // get players from team
   // run dispatch(fetchPaginatedResultsRequest(team.name)); in the background
   // when the user clicks on the pagination buttons
@@ -34,15 +42,18 @@ export const TeamView = (props) => {
   };
 
   // GET COLUMNS FROM PLAYERS
-  const columns = Object.keys(props.players[0]).map((key) => {
-    return {
-      id: key,
-      label: key,
-      minWidth: 170,
-      align: "left",
-      format: (value) => value.toLocaleString("en-US"),
-    };
-  });
+  const columns =
+    props.players.length > 0
+      ? Object.keys(props.players[0]).map((key) => {
+          return {
+            id: key,
+            label: key,
+            minWidth: 170,
+            align: "left",
+            format: (value) => value.toLocaleString("en-US"),
+          };
+        })
+      : [];
 
   // remove columns that we don't want to show
   columns.forEach((column, index) => {
@@ -68,9 +79,9 @@ export const TeamView = (props) => {
         <Link to="/teams">Teams</Link>
       </Breadcrumbs>
 
-      <h1>{team.Country}</h1>
+      <h1>{team.Country + " " + getCountryFlag(team.Country)}</h1>
       {/* Show players */}
-      <EnhancedTable rows={players} columns={columns} />
+      <EnhancedTable rows={players} columns={columns} preSort={true} />
 
       <div
         style={{

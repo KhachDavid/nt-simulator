@@ -34,9 +34,7 @@ def create_fake_position():
 def create_fake_nation():
     fake = Faker()
     # generate a fake nation from the list of countries but give a higher probability to the top 10 countries
-    nation = fake.random_element(elements=(
-        
-    return nation
+    pass
 
 # create a fake club for the player
 

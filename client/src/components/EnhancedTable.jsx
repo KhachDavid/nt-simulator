@@ -45,14 +45,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 // align text to the right
 
-const EnhancedTable = ({ rows, columns, onRowClick }) => {
-  const [orderBy, setOrderBy] = React.useState(columns[0].uid);
+const EnhancedTable = ({ rows, columns, onRowClick, preSort }) => {
+  const [orderBy, setOrderBy] = React.useState(columns.length > 0 ? columns[0].id : "");
   const [order, setOrder] = React.useState("asc");
 
   // orderBy rows
   const sortedRows = React.useMemo(() => {
     const sortedRows = [...rows];
-    if (orderBy) {
+    if (orderBy && preSort) {
       sortedRows.sort((a, b) => {
         if (a[orderBy] < b[orderBy]) {
           return order === "asc" ? -1 : 1;
@@ -67,7 +67,7 @@ const EnhancedTable = ({ rows, columns, onRowClick }) => {
     }
 
     return sortedRows;
-  }, [rows, orderBy, order]);
+  }, [rows, orderBy, order, preSort]);
 
   const handleSort = (property) => (event) => {
     const isAsc = orderBy === property && order === "asc";
@@ -79,9 +79,9 @@ const EnhancedTable = ({ rows, columns, onRowClick }) => {
     <TableContainer
       component={Paper}
       elevation={5}
-      sx={{ 
-        borderRadius: 2, 
-        width: "max-content" ,
+      sx={{
+        borderRadius: 2,
+        width: "max-content",
         // fix width overflow
         maxWidth: "100%",
         minWidth: "100%",
@@ -89,9 +89,11 @@ const EnhancedTable = ({ rows, columns, onRowClick }) => {
     >
       <Table aria-label="enhanced table" style={{ tableLayout: "auto" }}>
         <TableHead>
-          <TableRow sx={{ 
-            height: "auto",
-          }}>
+          <TableRow
+            sx={{
+              height: "auto",
+            }}
+          >
             {columns.map((column) => (
               <StyledTableCell
                 key={column.id}

@@ -1,4 +1,5 @@
 export const getNations = (state) => state.nation.nations;
+export const getContinents = (state) => state.nation.continents;
 export const getPlayersFromNation = (state) => state.nation.players;
 export const getPlayersIsLoading = (state) => state.nation.loading;
 export const getNumPages = (state) => state.nation.num_pages;

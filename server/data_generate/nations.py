@@ -450,13 +450,12 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 django.setup()
 from base.models import *
 
-
 # import from a parent directory
 
 
-def insert_nations():
+def insert_nations(nations_list):
     # insert nations into database
-    for nation in nations_fifa:
+    for nation in nations_list:
         # country, continent, population, capital, stability, corruption, fanbase level, name generator, conversion option
         nation_name = nation[0]
         nation_continent = nation[1]
@@ -511,7 +510,8 @@ def insert_players():
                         nation=Nation.objects.get(name=country_name),
                         # random age with certain distribution
                         birth_year=random.choices(
-                            population=[1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008], 
+                            population=[1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998,
+                                        1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008],
                             weights=[
                                 # 19 probabilities must add up to 1
                                 0.06, 0.11, 0.01, 0.03, 0.15, 0.02, 0.05, 0.13, 0.07, 0.04, 0.12, 0.09, 0.08, 0.05, 0.02, 0.07, 0.06, 0.04, 0.03
@@ -519,19 +519,19 @@ def insert_players():
                             k=1
                         )[0],
                         height=random.choices(
-                            population=[150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200],
-                            weights=
-                                # distribute from 150 to 200 must add up to 1
-                                [ 0.006, 0.008, 0.013, 0.02, 0.03, 0.043, 0.058, 0.073, 0.088, 0.099, 0.106, 0.107, 0.102, 0.093, 0.081, 0.068, 0.054, 0.041, 0.03, 0.021, 0.014, 0.009, 0.005, 0.003, 0.002, 0.002, 0.003, 0.005, 0.009, 0.014, 0.021, 0.03, 0.041, 0.054, 0.068, 0.081, 0.093, 0.102, 0.107, 0.106, 0.099, 0.088, 0.073, 0.058, 0.043, 0.03, 0.02, 0.013, 0.008, 0.004, 0.002]
-                            ,
+                            population=[150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174,
+                                        175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200],
+                            weights=# distribute from 150 to 200 must add up to 1
+                            [0.006, 0.008, 0.013, 0.02, 0.03, 0.043, 0.058, 0.073, 0.088, 0.099, 0.106, 0.107, 0.102, 0.093, 0.081, 0.068, 0.054, 0.041, 0.03, 0.021, 0.014, 0.009, 0.005, 0.003, 0.002, 0.002,
+                                0.003, 0.005, 0.009, 0.014, 0.021, 0.03, 0.041, 0.054, 0.068, 0.081, 0.093, 0.102, 0.107, 0.106, 0.099, 0.088, 0.073, 0.058, 0.043, 0.03, 0.02, 0.013, 0.008, 0.004, 0.002],
                             k=1
                         )[0],
                         weight=random.choices(
-                            population=[50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100],
-                            weights=
-                                # distribute from 50 to 100 must add up to 1
-                                [0.006, 0.008, 0.013, 0.02, 0.03, 0.043, 0.058, 0.073, 0.088, 0.099, 0.106, 0.107, 0.102, 0.093, 0.081, 0.068, 0.054, 0.041, 0.03, 0.021, 0.014, 0.009, 0.005, 0.003, 0.002, 0.002, 0.003, 0.005, 0.009, 0.014, 0.021, 0.03, 0.041, 0.054, 0.068, 0.081, 0.093, 0.102, 0.107, 0.106, 0.099, 0.088, 0.073, 0.058, 0.043, 0.03, 0.02, 0.013, 0.008, 0.004, 0.002]
-                            ,
+                            population=[50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73,
+                                        74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100],
+                            weights=# distribute from 50 to 100 must add up to 1
+                            [0.006, 0.008, 0.013, 0.02, 0.03, 0.043, 0.058, 0.073, 0.088, 0.099, 0.106, 0.107, 0.102, 0.093, 0.081, 0.068, 0.054, 0.041, 0.03, 0.021, 0.014, 0.009, 0.005, 0.003, 0.002, 0.002,
+                                0.003, 0.005, 0.009, 0.014, 0.021, 0.03, 0.041, 0.054, 0.068, 0.081, 0.093, 0.102, 0.107, 0.106, 0.099, 0.088, 0.073, 0.058, 0.043, 0.03, 0.02, 0.013, 0.008, 0.004, 0.002],
                             k=1
                         )[0],
                         political_alignment=random.choices(
@@ -541,19 +541,24 @@ def insert_players():
                         )[0],
                         pc_level=random.choices(
                             population=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-                            weights=[0.015, 0.078, 0.132, 0.382, 0.228, 0.145, 0.045, 0.009, 0.001, 0.1, 0.1],
+                            weights=[0.015, 0.078, 0.132, 0.382, 0.228,
+                                     0.145, 0.045, 0.009, 0.001, 0.1, 0.1],
                             k=1
                         )[0],
                         best_quality=random.choices(
                             # - PranksterLevel - Confidence - Aggression - Discipline- Sportsmanship - Wealth - DadJokeAptitud
-                            population=['Prankster', 'Confident', 'Aggressive', 'Disciplined', 'Neutral', 'Wealthy', 'Hilarious'],
-                            weights=[0.068, 0.254, 0.426, 0.254, 0.068, 0.009, 0.001],
+                            population=['Prankster', 'Confident', 'Aggressive',
+                                        'Disciplined', 'Neutral', 'Wealthy', 'Hilarious'],
+                            weights=[0.068, 0.254, 0.426,
+                                     0.254, 0.068, 0.009, 0.001],
                             k=1
                         )[0],
                         worst_quality=random.choices(
                             # - PranksterLevel - Confidence - Aggression - Discipline- Sportsmanship - Wealth - DadJokeAptitud
-                            population=['Prankster', 'Confident', 'Aggressive', 'Disciplined', 'Neutral', 'Wealthy', 'Hilarious'],
-                            weights=[0.068, 0.254, 0.426, 0.254, 0.068, 0.009, 0.001],
+                            population=['Prankster', 'Confident', 'Aggressive',
+                                        'Disciplined', 'Neutral', 'Wealthy', 'Hilarious'],
+                            weights=[0.068, 0.254, 0.426,
+                                     0.254, 0.068, 0.009, 0.001],
                             k=1
                         )[0],
                         # twitter followers random within a range
@@ -563,21 +568,476 @@ def insert_players():
                             weights=[0.05, 0.95],
                         )[0],
                     )
-                    print("- Data: {0}, Created: {1}".format(str(d), str(created)))
+                    print(
+                        "- Data: {0}, Created: {1}".format(str(d), str(created)))
+
 
 def check_players():
-    nations = Nation.objects.all() 
+    nations = Nation.objects.all()
     for nation in nations:
         players = Player.objects.filter(nation=nation)
         # format a print for nation name and players length
-        print("- Nation: {0}, Players: {1}".format(nation.name, len(players)))        
+        print("- Nation: {0}, Players: {1}".format(nation.name, len(players)))
 
+
+def check_countries():
+    # >>> a = Nation.objects.filter(player__isnull=False).annotate(num_players=Count('player')).
+    # >>> len(a)
+    # 190
+    # >>> print(", ".join(nation['name'] for nation in nation_list))
+    a = "Afghanistan, Albania, Algeria, Andorra, Angola, Antigua and Barbuda, Argentina, Armenia, Australia, Austria, Bahamas, Bahrain, Bangladesh, Barbados, Belarus, Belgium, Belize, Benin, Bhutan, Bolivia, Botswana, Brazil, Brunei, Bulgaria, Burkina Faso, Burundi, Cabo Verde, Cambodia, Cameroon, Canada, Central African Republic, Chad, Chile, China, Colombia, Comoros, Costa Rica, Côte d'Ivoire, Croatia, Cuba, Cyprus, Czech Republic, Democratic Republic of the Congo, Denmark, Djibouti, Dominica, Dominican Republic, Ecuador, Egypt, El Salvador, Equatorial Guinea, Eritrea, Estonia, Eswatini, Ethiopia, Fiji, Finland, France, Gabon, Gambia, Georgia, Germany, Ghana, Greece, Grenada, Guatemala, Guinea, Guinea-Bissau, Guyana, Haiti, Honduras, Hungary, Iceland, India, Indonesia, Iran, Iraq, Ireland, Israel, Italy, Jamaica, Japan, Jordan, Kenya, Kiribati, Kosovo, Kuwait, Kyrgyzstan, Laos, Latvia, Lebanon, Lesotho, Liberia, Libya, Liechtenstein, Lithuania, Luxembourg, Madagascar, Malawi, Malaysia, Maldives, Mali, Malta, Marshall Islands, Mauritania, Mauritius, Mexico, Micronesia, Moldova, Monaco, Mongolia, Montenegro, Morocco, Mozambique, Myanmar, Namibia, Nauru, Nepal, Netherlands, New Zealand, Nicaragua, Niger, Nigeria, North Korea, North Macedonia, Norway, Oman, Pakistan, Palau, Panama, Paraguay, Peru, Philippines, Poland, Portugal, Qatar, Republic of the Congo, Romania, Russia, Rwanda, Saint Lucia, Saint Vincent and the Grenadines, Samoa, San Marino, Sao Tome and Principe, Saudi Arabia, Senegal, Serbia, Seychelles, Sierra Leone, Singapore, Slovakia, Slovenia, Solomon Islands, Somalia, South Africa, South Korea, South Sudan, Spain, Sri Lanka, Sudan, Suriname, Sweden, Switzerland, Syria, Taiwan, Tajikistan, Tanzania, Thailand, Timor-Leste, Togo, Tonga, Trinidad and Tobago, Tunisia, Turkey, Turkmenistan, Tuvalu, Uganda, Ukraine, United Arab Emirates, United Kingdom, United States, Uruguay, Uzbekistan, Vanuatu, Venezuela, Vietnam, Yemen, Zambia, Zimbabwe"
+
+    for root, dirs, files in os.walk('names'):
+        for file in files:
+            # read file
+            with open(os.path.join(root, file), 'r') as f:
+                # read lines
+                country_name = file.split('_')[0]
+                # check if country name is in a
+                if country_name == "United States":
+                    print(country_name)
+                    lines = f.readlines()
+                    # iterate through lines
+                    for index, line in enumerate(lines):
+                        # split line
+
+                        line = line.strip().split(' ')
+                        # get name
+                        print(line)
+                        if (len(line) < 2 or (line[0] == 'Joe' and line[1] == 'Doe') or (line[0] == 'John' and line[1] == 'Doe') or line[0] == 'English' or line[1] == 'English' or line[0] == 'english' or line[1] == 'english' or (line[0] == 'John' and line[1] == 'Adams')):
+                            continue
+                        first_name = line[0]
+                        last_name = line[1] if len(line) > 1 else ''
+                        if len(line) > 2:
+                            # append all other names
+                            for name in line[2:]:
+                                last_name += ' ' + name
+
+                        # insert player into django database
+                        d, created = Player.objects.get_or_create(
+                            name=first_name,
+                            last_name=last_name,
+                            # random position
+                            position=random.choice(
+                                ['GK', 'CB', 'CB', 'LB', 'RB', 'DM', 'CM', 'LM', 'RM', 'AM', 'ST', 'ST', 'CF']),
+                            nation=Nation.objects.get(name=country_name),
+                            # random age with certain distribution
+                            birth_year=random.choices(
+                                population=[1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998,
+                                            1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008],
+                                weights=[
+                                    # 19 probabilities must add up to 1
+                                    0.06, 0.11, 0.01, 0.03, 0.15, 0.02, 0.05, 0.13, 0.07, 0.04, 0.12, 0.09, 0.08, 0.05, 0.02, 0.07, 0.06, 0.04, 0.03
+                                ],
+                                k=1
+                            )[0],
+                            height=random.choices(
+                                population=[150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174,
+                                            175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200],
+                                weights=# distribute from 150 to 200 must add up to 1
+                                [0.006, 0.008, 0.013, 0.02, 0.03, 0.043, 0.058, 0.073, 0.088, 0.099, 0.106, 0.107, 0.102, 0.093, 0.081, 0.068, 0.054, 0.041, 0.03, 0.021, 0.014, 0.009, 0.005, 0.003, 0.002, 0.002,
+                                    0.003, 0.005, 0.009, 0.014, 0.021, 0.03, 0.041, 0.054, 0.068, 0.081, 0.093, 0.102, 0.107, 0.106, 0.099, 0.088, 0.073, 0.058, 0.043, 0.03, 0.02, 0.013, 0.008, 0.004, 0.002],
+                                k=1
+                            )[0],
+                            weight=random.choices(
+                                population=[50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73,
+                                            74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100],
+                                weights=# distribute from 50 to 100 must add up to 1
+                                [0.006, 0.008, 0.013, 0.02, 0.03, 0.043, 0.058, 0.073, 0.088, 0.099, 0.106, 0.107, 0.102, 0.093, 0.081, 0.068, 0.054, 0.041, 0.03, 0.021, 0.014, 0.009, 0.005, 0.003, 0.002, 0.002,
+                                    0.003, 0.005, 0.009, 0.014, 0.021, 0.03, 0.041, 0.054, 0.068, 0.081, 0.093, 0.102, 0.107, 0.106, 0.099, 0.088, 0.073, 0.058, 0.043, 0.03, 0.02, 0.013, 0.008, 0.004, 0.002],
+                                k=1
+                            )[0],
+                            political_alignment=random.choices(
+                                population=['left', 'center', 'right'],
+                                weights=[0.4, 0.4, 0.2],
+                                k=1
+                            )[0],
+                            pc_level=random.choices(
+                                population=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                                weights=[0.015, 0.078, 0.132, 0.382, 0.228,
+                                         0.145, 0.045, 0.009, 0.001, 0.1, 0.1],
+                                k=1
+                            )[0],
+                            best_quality=random.choices(
+                                # - PranksterLevel - Confidence - Aggression - Discipline- Sportsmanship - Wealth - DadJokeAptitud
+                                population=['Prankster', 'Confident', 'Aggressive',
+                                            'Disciplined', 'Neutral', 'Wealthy', 'Hilarious'],
+                                weights=[0.068, 0.254, 0.426,
+                                         0.254, 0.068, 0.009, 0.001],
+                                k=1
+                            )[0],
+                            worst_quality=random.choices(
+                                # - PranksterLevel - Confidence - Aggression - Discipline- Sportsmanship - Wealth - DadJokeAptitud
+                                population=['Prankster', 'Confident', 'Aggressive',
+                                            'Disciplined', 'Neutral', 'Wealthy', 'Hilarious'],
+                                weights=[0.068, 0.254, 0.426,
+                                         0.254, 0.068, 0.009, 0.001],
+                                k=1
+                            )[0],
+                            # twitter followers random within a range
+                            twitter_followers=random.randint(0, 1000000),
+                            is_manager=random.choices(
+                                population=[True, False],
+                                weights=[0.05, 0.95],
+                            )[0],
+                        )
+                        print(
+                            "- Data: {0}, Created: {1}".format(str(d), str(created)))
+
+
+def split_uk():
+
+    england = Nation.objects.get(name="England")
+    scotland = Nation.objects.get(name="Scotland")
+    wales = Nation.objects.get(name="Wales")
+    northern_ireland = Nation.objects.get(name="Northern Ireland")
+
+    nation_lists = [england]
+
+    for nation in nation_lists:
+        fan_loyalty = nation.fan_loyalty
+        corruption_level = nation.corruption_level
+        political_climate = nation.political_climate
+        population = nation.population
+
+        # enumerate fan loyalty from low moderate high
+        if fan_loyalty == "low":
+            fan_loyalty = 0.25
+        elif fan_loyalty == "moderate":
+            fan_loyalty = 0.5
+        elif fan_loyalty == "high":
+            fan_loyalty = 1
+
+        # enumerate corruption level from low moderate high
+        if corruption_level == "low":
+            corruption_level = 1
+        elif corruption_level == "moderate":
+            corruption_level = 0.5
+        elif corruption_level == "high":
+            corruption_level = 0.25
+
+        # enumerate political climate from calm moderate volatile war
+        if political_climate == "calm":
+            political_climate = 1
+        elif political_climate == "moderate":
+            political_climate = 0.75
+        elif political_climate == "volatile":
+            political_climate = 0.5
+        elif political_climate == "war":
+            political_climate = 0.25
+
+        # get 1% of the population
+        population = int(population)
+        population = population / 1000
+
+        players_to_generate = 271
+        uk_players = Player.objects.filter(nation__name='United Kingdom')
+        # loop over players
+        for player in uk_players:
+            # if player is not in the nation
+            if player.nation != nation:
+                # if there are still players to generate
+                if players_to_generate > 0:
+                    # change the player's nation
+                    player.nation = nation
+                    player.save()
+                    players_to_generate -= 1
+
+                    # add loggging
+                    print("Player {0} changed to {1}".format(
+                        player.name, nation.name))
+                else:
+                    break
+
+def get_country_rankings():
+    # keep track of the rankings
+    rankings = []
+    rankig_duplicates = []
+    missing_rankings = []
+
+    nations = Nation.objects.all()
+    for nation in nations:
+        nation_ranking = NationRanking.objects.get(nation=nation)
+        # print the nation and ranking
+        ranking = (nation_ranking.ranking, nation.name)
+        rankings.append(ranking)
+
+    # sort duplicates by ranking
+    rankings.sort(key=lambda tup: tup[0])
+
+    for ranking in rankings:
+        print(ranking)
+
+
+    # find rankings between 1 and 200 that are not in the rankings list
+    for i in range(1, 201):
+        if i not in rankings:
+            print("Missing ranking: {0}".format(i))
+            missing_rankings.append(i)
+
+    # fix the missing ranking by finding one of the duplicates
+    # find the closest ranking that is not in the rankings list
+    # and assign it to the missing ranking
+    #for duplicate in rankig_duplicates:
+    #    # duplicate wont be in missing rankings
+    #    # find the closest ranking that is not in the rankings list and is on missing rankings
+    #    # assign it to the missing ranking
+    #    for missing_ranking in missing_rankings:
+    #        if missing_ranking not in rankings:
+    #            # assign the missing ranking to the duplicate
+    #            nation_ranking = NationRanking.objects.get(nation__name=duplicate[1])
+    #            nation_ranking.ranking = missing_ranking
+    #            nation_ranking.save()
+    #            print("Assigned missing ranking {0} to {1}".format(missing_ranking, nation_ranking.nation.name))
+#
+    #            # remove the missing ranking from the missing rankings list
+    #            missing_rankings.remove(missing_ranking)
+#
+    #            break
+
+def insert_country_rankings():
+    # read RedRun file
+    # each line contains this (177, 'Micronesia')
+    # split the line by comma
+    # get the first element
+    # get the second element
+    # remove the first and last character from the second element
+    # convert the first element to int
+    # find the nation with the name of the second element
+    # add the field ranking to the nation
+    # save the nation
+    # print the nation and ranking
+    # repeat for each line
+    #(1, 'Belgium')
+    #(2, 'Brazil')
+    #(3, 'France')
+    #(4, 'England')
+    #(5, 'Portugal')
+    #(6, 'Germany')
+    #(7, 'Spain')
+    #(8, 'Argentina')
+    #(9, 'Croatia')
+    #(10, 'Chile')
+    #(11, 'Denmark')
+    #(12, 'Uruguay')
+    #(13, 'Switzerland')
+    #(14, 'Colombia')
+    #(15, 'Wales')
+    #(16, 'Netherlands')
+    #(17, 'United States')
+    #(18, 'China')
+    #(19, 'Republic of the Congo')
+    #(20, 'Czech Republic')
+    #(21, 'Poland')
+    #(22, 'Senegal')
+    #(23, 'Austria')
+    #(24, 'Democratic Republic of the Congo')
+    #(25, 'Serbia')
+    #(26, "Côte d'Ivoire")
+    #(27, 'Iran')
+    #(28, 'Tunisia')
+    #(29, 'Ecuador')
+    #(30, 'Greece')
+    #(31, 'Ireland')
+    #(32, 'Peru')
+    #(34, 'Nigeria')
+    #(35, 'Algeria')
+    #(36, 'Turkey')
+    #(37, 'Sweden')
+    #(38, 'Russia')
+    #(39, 'Iceland')
+    #(40, 'Hungary')
+    #(41, 'Australia')
+    #(42, 'Honduras')
+    #(43, 'Paraguay')
+    #(44, 'Costa Rica')
+    #(45, 'Israel')
+    #(46, 'Finland')
+    #(47, 'Italy')
+    #(48, 'Egypt')
+    #(49, 'Bosnia and Herzegovina')
+    #(50, 'Slovenia')
+    #(51, 'Jamaica')
+    #(52, 'Cameroon')
+    #(53, 'Japan')
+    #(54, 'Ghana')
+    #(55, 'Qatar')
+    #(56, 'Guinea')
+    #(57, 'Burkina Faso')
+    #(58, 'Kosovo')
+    #(59, 'Canada')
+    #(60, 'Morocco')
+    #(61, 'Scotland')
+    #(62, 'Bulgaria')
+    #(63, 'Liberia')
+    #(64, 'Lithuania')
+    #(65, 'Luxembourg')
+    #(66, 'Albania')
+    #(67, 'Saudi Arabia')
+    #(68, 'Ukraine')
+    #(69, 'Slovakia')
+    #(70, 'Mali')
+    #(71, 'Malta')
+    #(72, 'El Salvador')
+    #(73, 'South Korea')
+    #(74, 'Panama')
+    #(75, 'Bolivia')
+    #(76, 'Syria')
+    #(77, 'Romania')
+    #(78, 'Northern Ireland')
+    #(79, 'Zambia')
+    #(80, 'Iraq')
+    #(81, 'Mexico')
+    #(82, 'United Arab Emirates')
+    #(83, 'Georgia')
+    #(84, 'Benin')
+    #(85, 'Cabo Verde')
+    #(86, 'Belarus')
+    #(87, 'Moldova')
+    #(88, 'Madagascar')
+    #(89, 'Malawi')
+    #(90, 'Mozambique')
+    #(91, 'Namibia')
+    #(92, 'Uzbekistan')
+    #(93, 'Kuwait')
+    #(94, 'Cyprus')
+    #(95, 'Montenegro')
+    #(96, 'Nicaragua')
+    #(97, 'Estonia')
+    #(98, 'Bahrain')
+    #(99, 'Armenia')
+    #(100, 'Mongolia')
+    #(101, 'Niger')
+    #(102, 'Guinea-Bissau')
+    #(103, 'North Macedonia')
+    #(104, 'Norway')
+    #(105, 'India')
+    #(106, 'Kenya')
+    #(107, 'Jordan')
+    #(108, 'Comoros')
+    #(109, 'Azerbaijan')
+    #(110, 'Latvia')
+    #(111, 'North Korea')
+    #(112, 'Oman')
+    #(113, 'Palau')
+    #(114, 'Mauritania')
+    #(115, 'Sierra Leone')
+    #(116, 'Thailand')
+    #(117, 'Kyrgyzstan')
+    #(118, 'Gabon')
+    #(119, 'Central African Republic')
+    #(120, 'New Zealand')
+    #(121, 'Libya')
+    #(122, 'Dominican Republic')
+    #(123, 'Angola')
+    #(124, 'Philippines')
+    #(125, 'Gambia')
+    #(126, 'Antigua and Barbuda')
+    #(127, 'Kazakhstan')
+    #(128, 'Saint Lucia')
+    #(129, 'Guatemala')
+    #(130, 'Andorra')
+    #(131, 'Tanzania')
+    #(132, 'Liechtenstein')
+    #(133, 'San Marino')
+    #(134, 'Burundi')
+    #(135, 'Rwanda')
+    #(136, 'Equatorial Guinea')
+    #(137, 'Ethiopia')
+    #(138, 'Sao Tome and Principe')
+    #(139, 'Cuba')
+    #(140, 'Myanmar')
+    #(141, 'Eswatini')
+    #(142, 'Lebanon')
+    #(143, 'Afghanistan')
+    #(144, 'Lesotho')
+    #(145, 'South Africa')
+    #(146, 'South Sudan')
+    #(147, 'Botswana')
+    #(148, 'Sri Lanka')
+    #(149, 'Sudan')
+    #(150, 'Suriname')
+    #(151, 'Haiti')
+    #(152, 'Saint Vincent and the Grenadines')
+    #(153, 'Tajikistan')
+    #(154, 'Saint Kitts and Nevis')
+    #(155, 'Laos')
+    #(156, 'Chad')
+    #(157, 'Singapore')
+    #(158, 'Indonesia')
+    #(159, 'Timor-Leste')
+    #(160, 'Barbados')
+    #(161, 'Dominica')
+    #(162, 'Solomon Islands')
+    #(163, 'Togo')
+    #(164, 'Tonga')
+    #(165, 'Trinidad and Tobago')
+    #(166, 'Guyana')
+    #(167, 'Malaysia')
+    #(168, 'Maldives')
+    #(169, 'Fiji')
+    #(170, 'Turkmenistan')
+    #(171, 'Tuvalu')
+    #(172, 'Uganda')
+    #(173, 'Cambodia')
+    #(174, 'Mauritius')
+    #(175, 'Belize')
+    #(176, 'Marshall Islands')
+    #(177, 'Micronesia')
+    #(178, 'Grenada')
+    #(179, 'Papua New Guinea')
+    #(180, 'Venezuela')
+    #(181, 'Nepal')
+    #(182, 'Bahamas')
+    #(183, 'Seychelles')
+    #(184, 'Vietnam')
+    #(185, 'Djibouti')
+    #(186, 'Bhutan')
+    #(187, 'Bangladesh')
+    #(188, 'Yemen')
+    #(189, 'Eritrea')
+    #(190, 'Zimbabwe')
+    #(191, 'Monaco')
+    #(192, 'Brunei')
+    #(193, 'Nauru')
+    #(193, 'Pakistan')
+    #(194, 'Vanuatu')
+    #(195, 'Somalia')
+    #(196, 'Taiwan')
+    #(197, 'Samoa')
+    #(198, 'Kiribati')
+    #(199, 'Vatican City')
+    with open('RedRun', 'r') as f:  
+        lines = f.readlines()
+        for line in lines:
+            # remove ( )
+            # line = (199, 'Vatican City')
+            line = line.replace('(', '')
+            line = line.replace(')', '')
+            line = line.replace("'", '')
+            line = line.replace('\n', '')
+            line = line.split(',')
+            print(line)
+
+            # find the nation
+
+            nation = Nation.objects.filter(name=line[1].strip()).first()
+            if nation:
+                nation.rank = line[0]
+                nation.save()
+                print(f'updated {nation.name}')
+            else:
+                print('no nation found')
+                print(line[1])
 
 def main():
-    # insert_nations()
+    # insert_nations(nations_fifa)
     # insert_players()
     # check_players()
+    # check_countries()
+    # split_uk()
+    insert_country_rankings()
 
-# check if main
+    # check if main
 if __name__ == '__main__':
     main()

@@ -22,6 +22,10 @@ export const getNations = () => {
   return axios.get(endpoints.main + endpoints.nations);
 };
 
+export const getContinents = () => {
+  return axios.get(endpoints.main + endpoints.continents);
+};
+
 export const getPlayersFromNation = (nation, page) => {
   return axios.get(endpoints.main + endpoints.nations + "/" + nation, {
     params: {

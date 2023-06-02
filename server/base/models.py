@@ -15,13 +15,41 @@ class Nation(models.Model):
     fan_loyalty = models.CharField(max_length=50, default="")
     faker_locale_options = models.CharField(max_length=50, default="")
     conversion_option = models.CharField(max_length=50, default="")
+    rank = models.IntegerField(default=0)
+
+    def readable_population(self):
+        # based on the population, return a readable string
+        # 1000 -> 1k
+        # 1000000 -> 1m
+        # 1000000000 -> 1b
+
+        # if the population is less than 1000
+        if self.population < 1000:
+            # return the population
+            return str(self.population)
+        
+        # if the population is less than 1000000
+        elif self.population < 1000000:
+            # return the population divided by 1000 with a k appended
+            return str(self.population // 1000) + " K"
+        
+        # if the population is less than 1000000000
+        elif self.population < 1000000000:
+            # return the population divided by 1000000 with an m appended
+            return str(self.population // 1000000) + " M"
+        
+        # if the population is greater than 1000000000
+        else:
+            # return the population divided by 1000000000 with a b appended
+            return str(self.population // 1000000000) + " B"
 
     def frontend_dict(self):
         return {
             "uid": self.uid,
+            "Rank": self.rank,
             "Country": self.name,
             "Continent": self.continent,
-            "Population": self.population,
+            "Population": self.readable_population(),
             "Capital": self.capital,
             "Political State": self.political_climate,
             "Corruption Level": self.corruption_level,
@@ -100,36 +128,76 @@ class Player(models.Model):
         return self.name + " " + self.last_name
 
     def calculate_rating(self):
-        max_goals = 50
-        max_assists = 50
-        max_pc_level = 100
+        # position options
+        positions = ["GK", "CB", "LB", "RB", "CDM", "CM", "CAM", "LM", "RM", "LW", "RW", "ST", "CF"]
         max_height = 200
+        min_height = 160
         max_weight = 100
+        min_weight = 60
+        max_twitter_followers = 10000000
+        min_twitter_followers = 0
+        min_birth_year = 1980
+        max_birth_year = 2010
+        max_ranking = 199
+        min_ranking = 0
 
-        # max followers is 100 million
-        max_followers = 1000000
-        max_age = 40
+        # calculate maximum possible rating
+        max_rating = 100
 
-        normalized_goals = self.goals / max_goals
-        normalized_assists = self.assists / max_assists
-        normalized_pc_level = self.pc_level  / max_pc_level
-        normalized_height = self.height / max_height
+        rating = 20  # Starting rating at 20
 
-        # for weight lower is better
-        normalized_weight = 1 - (self.weight / max_weight)
+        # Goals and assists
+        rating += self.goals * 0.4
+        rating += self.assists * 0.3
 
-        normalized_followers = self.twitter_followers / max_followers
+        # Position
+        position_weights = {
+            'GK': 10,
+            'RB': 5,
+            'CB': 7,
+            'LB': 5,
+            'CDM': 8,
+            'CM': 6,
+            'CAM': 6,
+            'RW': 4,
+            'LW': 4,
+            'ST': 7,
+            'CF': 6,
+            'RM': 4,
+            'LM': 4
+        }
+        rating += position_weights.get(self.position, 0)
 
-        # for age lower closer to 27 is better
-        normalized_age = 1 - (self.get_age() / max_age)
+        # Height
+        if self.position in ['CB', 'CDM', 'GK']:
+            height_ratio = (self.height - min_height) / (max_height - min_height)
+        else:
+            height_ratio = (max_height - self.height) / (max_height - min_height)
+        rating += height_ratio * 15
 
+        # Weight
+        if self.position in ['CB', 'CDM', 'GK']:
+            weight_ratio = (max_weight - self.weight) / (max_weight - min_weight)
+        else:
+            weight_ratio = (self.weight - min_weight) / (max_weight - min_weight)
+        rating += weight_ratio * 10
 
-        rating = (normalized_followers * 0.3 + normalized_assists * 0.2 +
-                  normalized_pc_level * 0.15 + normalized_height * 0.1 +
-                  normalized_weight * 0.1 + normalized_goals * 0.05 +
-                  normalized_age * 0.1) * 80 + 20
+        # Twitter followers
+        followers_ratio = (self.twitter_followers - min_twitter_followers) / (max_twitter_followers - min_twitter_followers)
+        rating += followers_ratio * 15
 
-        return int(rating)
+        # Birth year
+        age_ratio = (max_birth_year - self.birth_year) / (max_birth_year - min_birth_year)
+        rating += age_ratio * 10
+
+        # Nation Ranking
+
+        # get nation ranking from NationRanking model
+        # Clamp rating within the range of 20-100
+        rating = max(20, min(100, rating))
+
+        return int(round(rating))
+
 
     def get_age(self):
         today = datetime.date.today()
@@ -156,11 +224,10 @@ class Player(models.Model):
 class Season(models.Model):
     uid = models.AutoField(primary_key=True)
     year = models.IntegerField()
-    description = models.CharField(max_length=50)
+    description = models.CharField(max_length=60)
 
     def __str__(self):
         return self.description
-
 
 class Game(models.Model):
     uid = models.AutoField(primary_key=True)

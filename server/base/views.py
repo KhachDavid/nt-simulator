@@ -11,15 +11,23 @@ def nations(request):
     if request.method != "GET":
         return JsonResponse({"error": "GET request required."}, status=400)
 
-    # get all the nations
-    nations = Nation.objects.all()
+    # get all the nations and their rankings through the NationRanking model on join
     # create a list of nations
     nations_list = []
+
+    # nation has a ranking attribute sort by them in ascending order
+    nations = Nation.objects.order_by('rank')
+
     # loop through the nations
     for nation in nations:
         # create a dictionary of the nation
         # append the nation dictionary to the nations list
-        nations_list.append(nation.frontend_dict())
+        nation_frontend_dict = nation.frontend_dict()
+
+
+        nations_list.append(nation_frontend_dict)
+
+
     # return the nations list as a json response
     return JsonResponse(nations_list, safe=False)
 
@@ -63,3 +71,22 @@ def players(request, nation):
         'has_next': page.has_next(),
         'has_prev': page.has_previous(),
     })
+
+def continents(request):
+    # check the request method
+    if request.method != "GET":
+        return JsonResponse({"error": "GET request required."}, status=400)
+
+    # get unique continents from the nations
+    continents = Nation.objects.order_by().values('continent').distinct()
+
+    # create a list of continents
+    continents_list = []
+    
+    # loop through the continents
+    for continent in continents:
+        # add the continent to the continents list
+        continents_list.append(continent['continent'])
+
+    # return the continents list as a json response
+    return JsonResponse(continents_list, safe=False)

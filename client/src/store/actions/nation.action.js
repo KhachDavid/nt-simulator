@@ -7,7 +7,10 @@ export const GET_PLAYERS_FROM_NATION_SUCCESS =
   "GET_PLAYERS_FROM_NATION_SUCCESS";
 export const GET_PLAYERS_FROM_NATION_FAILURE =
   "GET_PLAYERS_FROM_NATION_FAILURE";
-export const RESET_PLAYERS_SUCCESS = "RESET_PLAYERS_SUCCESS";
+export const RESET_PLAYERS = "RESET_PLAYERS";
+export const GET_CONTINENTS_REQUEST = "GET_CONTINENTS_REQUEST";
+export const GET_CONTINENTS_SUCCESS = "GET_CONTINENTS_SUCCESS";
+export const GET_CONTINENTS_FAILURE = "GET_CONTINENTS_FAILURE";
 
 export const getNationsRequest = () => ({
   type: GET_NATIONS_REQUEST,
@@ -39,6 +42,19 @@ export const fetchPaginatedResultsError = (error) => ({
   payload: error,
 });
 
-export const resetPlayersSuccess = () => ({
-  type: RESET_PLAYERS_SUCCESS,
+export const getContinentsRequest = () => ({
+  type: GET_CONTINENTS_REQUEST,
+});
+
+export const getContinentsSuccess = (continents) => ({
+  type: GET_CONTINENTS_SUCCESS,
+  payload: continents,
+});
+
+export const getContinentsFailure = () => ({
+  type: GET_CONTINENTS_FAILURE,
+});
+
+export const resetPlayers = () => ({
+  type: RESET_PLAYERS,
 });

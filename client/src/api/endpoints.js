@@ -4,4 +4,5 @@
 export const endpoints = {
     main: "http://127.0.0.1:8000/api",
     nations: "/nations",
+    continents: "/continents",
 };

@@ -1,0 +1,182 @@
+<!-- API DOCUMENTATION -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>API Base</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      h1 {
+        color: #333;
+      }
+      h2 {
+        color: #666;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+      th {
+        background-color: #f5f5f5;
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+      }
+      td {
+        border: 1px solid #ccc;
+        padding: 8px;
+      }
+      code {
+        font-family: Consolas, monospace;
+        background-color: #f5f5f5;
+        padding: 2px 5px;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      .response {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #f5f5f5;
+      }
+      #response-container {
+        position: relative;
+      }
+
+      #clear-button-container {
+        margin-top: 10px;
+        background-color: #f5f5f5;
+        border: 1px solid #ccc;
+        padding: 8px 15px;
+        color: #333;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      #clear-button-container:hover {
+        background-color: #e0e0e0;
+      }
+
+      .key {
+        font-weight: bold;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      function clearResponseContainer() {
+        const responseContainer = document.getElementById("response-container");
+        document.getElementById("clear-button-container").style.display =
+          "none";
+        responseContainer.innerHTML = "";
+      }
+    </script>
+    <script>
+      function generateSmartDescription(data) {
+        // Check if the data is an object (JSON)
+        if (typeof data === "object") {
+          const keys = Object.keys(data);
+          const numKeys = keys.length;
+
+          if (numKeys === 0) {
+            return "This endpoint returns an empty JSON object.";
+          } else {
+            const keyString = numKeys > 1 ? "keys" : "key";
+            const firstKey = keys[0];
+            const firstValue = data[firstKey];
+
+            if (typeof firstValue === "object" && !Array.isArray(firstValue)) {
+              // Describe nested JSON structure
+              return "This endpoint returns a JSON object with nested structure.";
+            } else if (typeof firstValue === "string") {
+              return `This endpoint returns a JSON object with nested strings.`;
+            } else {
+              // Describe simple JSON structure with key list
+              //const keyList = keys
+              //  .map((key) => `<span class="key">${key}</span>`)
+              //  .join(", ");
+              //return `This endpoint returns a JSON object with ${numKeys} ${keyString}: ${keyList}.`;
+              // make sure the key list 
+              // make sure the key list is styled with bold font
+              const keyList = keys.join(", ");
+
+              return `This endpoint returns a JSON object with ${numKeys} ${keyString}: ${keyList}.`;
+            }
+          }
+        }
+
+        return "This endpoint returns a JSON response.";
+      }
+
+      function displayResponse(url) {
+        const responseContainer = document.getElementById("response-container");
+        const clearButtonContainer = document.getElementById(
+          "clear-button-container"
+        );
+
+        axios
+          .get(url)
+          .then((response) => {
+            const data = response.data;
+
+            const smartDescription = generateSmartDescription(data);
+            const descriptionElement = document.createElement("p");
+            descriptionElement.innerText = smartDescription;
+            responseContainer.innerHTML = "";
+            responseContainer.appendChild(descriptionElement);
+
+            const preElement = document.createElement("pre");
+            const codeElement = document.createElement("code");
+            codeElement.innerText = JSON.stringify(data, null, 2);
+            preElement.appendChild(codeElement);
+            responseContainer.appendChild(preElement);
+
+            clearButtonContainer.style.display = "block";
+          })
+          .catch((error) => {
+            console.error(error);
+            const errorElement = document.createElement("p");
+            errorElement.innerText =
+              "Error occurred while fetching the response.";
+            responseContainer.innerHTML = "";
+            responseContainer.appendChild(errorElement);
+          });
+      }
+    </script>
+  </head>
+  <body>
+    <h1>API Base</h1>
+    <h2>API Endpoints</h2>
+
+    <table>
+      <tr onclick="displayResponse('/api/nations')">
+        <td><code>GET /api/nations</code></td>
+        <td>Get a list of all nations sorted by their rank.</td>
+      </tr>
+      <tr onclick="displayResponse('/api/nations/Belgium?page=10')">
+        <td><code>GET /api/nations/Belgium?page=10</code></td>
+        <td>
+          Get a list of all players in Belgium (Page 10). Default returns the
+          first page
+        </td>
+      </tr>
+      <tr onclick="displayResponse('/api/nations/Belgium?page=2')">
+        <td><code>GET /api/nations/Belgium?page=2</code></td>
+        <td>Get a list of all players in Belgium (Page 2).</td>
+      </tr>
+      <tr onclick="displayResponse('/api/continents')">
+        <td><code>GET /api/continents</code></td>
+        <td>Get a list of all continents.</td>
+      </tr>
+    </table>
+    <button
+      id="clear-button-container"
+      onclick="clearResponseContainer()"
+      style="display: none"
+    >
+      Clear Response
+    </button>
+    <div id="response-container"></div>
+  </body>
+</html>

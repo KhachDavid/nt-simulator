@@ -1,199 +1,400 @@
-(1, 'Belgium')
-(2, 'Brazil')
-(3, 'France')
-(4, 'England')
-(5, 'Portugal')
-(6, 'Germany')
-(7, 'Spain')
-(8, 'Argentina')
-(9, 'Croatia')
-(10, 'Chile')
-(11, 'Denmark')
-(12, 'Uruguay')
-(13, 'Switzerland')
-(14, 'Colombia')
-(15, 'Wales')
-(16, 'Netherlands')
-(17, 'United States')
-(18, 'China')
-(19, 'Republic of the Congo')
-(20, 'Czech Republic')
-(21, 'Poland')
-(22, 'Senegal')
-(23, 'Austria')
-(24, 'Democratic Republic of the Congo')
-(25, 'Serbia')
-(26, "Côte d'Ivoire")
-(27, 'Iran')
-(28, 'Tunisia')
-(29, 'Ecuador')
-(30, 'Greece')
-(31, 'Ireland')
-(32, 'Peru')
-(34, 'Nigeria')
-(35, 'Algeria')
-(36, 'Turkey')
-(37, 'Sweden')
-(38, 'Russia')
-(39, 'Iceland')
-(40, 'Hungary')
-(41, 'Australia')
-(42, 'Honduras')
-(43, 'Paraguay')
-(44, 'Costa Rica')
-(45, 'Israel')
-(46, 'Finland')
-(47, 'Italy')
-(48, 'Egypt')
-(49, 'Bosnia and Herzegovina')
-(50, 'Slovenia')
-(51, 'Jamaica')
-(52, 'Cameroon')
-(53, 'Japan')
-(54, 'Ghana')
-(55, 'Qatar')
-(56, 'Guinea')
-(57, 'Burkina Faso')
-(58, 'Kosovo')
-(59, 'Canada')
-(60, 'Morocco')
-(61, 'Scotland')
-(62, 'Bulgaria')
-(63, 'Liberia')
-(64, 'Lithuania')
-(65, 'Luxembourg')
-(66, 'Albania')
-(67, 'Saudi Arabia')
-(68, 'Ukraine')
-(69, 'Slovakia')
-(70, 'Mali')
-(71, 'Malta')
-(72, 'El Salvador')
-(73, 'South Korea')
-(74, 'Panama')
-(75, 'Bolivia')
-(76, 'Syria')
-(77, 'Romania')
-(78, 'Northern Ireland')
-(79, 'Zambia')
-(80, 'Iraq')
-(81, 'Mexico')
-(82, 'United Arab Emirates')
-(83, 'Georgia')
-(84, 'Benin')
-(85, 'Cabo Verde')
-(86, 'Belarus')
-(87, 'Moldova')
-(88, 'Madagascar')
-(89, 'Malawi')
-(90, 'Mozambique')
-(91, 'Namibia')
-(92, 'Uzbekistan')
-(93, 'Kuwait')
-(94, 'Cyprus')
-(95, 'Montenegro')
-(96, 'Nicaragua')
-(97, 'Estonia')
-(98, 'Bahrain')
-(99, 'Armenia')
-(100, 'Mongolia')
-(101, 'Niger')
-(102, 'Guinea-Bissau')
-(103, 'North Macedonia')
-(104, 'Norway')
-(105, 'India')
-(106, 'Kenya')
-(107, 'Jordan')
-(108, 'Comoros')
-(109, 'Azerbaijan')
-(110, 'Latvia')
-(111, 'North Korea')
-(112, 'Oman')
-(113, 'Palau')
-(114, 'Mauritania')
-(115, 'Sierra Leone')
-(116, 'Thailand')
-(117, 'Kyrgyzstan')
-(118, 'Gabon')
-(119, 'Central African Republic')
-(120, 'New Zealand')
-(121, 'Libya')
-(122, 'Dominican Republic')
-(123, 'Angola')
-(124, 'Philippines')
-(125, 'Gambia')
-(126, 'Antigua and Barbuda')
-(127, 'Kazakhstan')
-(128, 'Saint Lucia')
-(129, 'Guatemala')
-(130, 'Andorra')
-(131, 'Tanzania')
-(132, 'Liechtenstein')
-(133, 'San Marino')
-(134, 'Burundi')
-(135, 'Rwanda')
-(136, 'Equatorial Guinea')
-(137, 'Ethiopia')
-(138, 'Sao Tome and Principe')
-(139, 'Cuba')
-(140, 'Myanmar')
-(141, 'Eswatini')
-(142, 'Lebanon')
-(143, 'Afghanistan')
-(144, 'Lesotho')
-(145, 'South Africa')
-(146, 'South Sudan')
-(147, 'Botswana')
-(148, 'Sri Lanka')
-(149, 'Sudan')
-(150, 'Suriname')
-(151, 'Haiti')
-(152, 'Saint Vincent and the Grenadines')
-(153, 'Tajikistan')
-(154, 'Saint Kitts and Nevis')
-(155, 'Laos')
-(156, 'Chad')
-(157, 'Singapore')
-(158, 'Indonesia')
-(159, 'Timor-Leste')
-(160, 'Barbados')
-(161, 'Dominica')
-(162, 'Solomon Islands')
-(163, 'Togo')
-(164, 'Tonga')
-(165, 'Trinidad and Tobago')
-(166, 'Guyana')
-(167, 'Malaysia')
-(168, 'Maldives')
-(169, 'Fiji')
-(170, 'Turkmenistan')
-(171, 'Tuvalu')
-(172, 'Uganda')
-(173, 'Cambodia')
-(174, 'Mauritius')
-(175, 'Belize')
-(176, 'Marshall Islands')
-(177, 'Micronesia')
-(178, 'Grenada')
-(179, 'Papua New Guinea')
-(180, 'Venezuela')
-(181, 'Nepal')
-(182, 'Bahamas')
-(183, 'Seychelles')
-(184, 'Vietnam')
-(185, 'Djibouti')
-(186, 'Bhutan')
-(187, 'Bangladesh')
-(188, 'Yemen')
-(189, 'Eritrea')
-(190, 'Zimbabwe')
-(191, 'Monaco')
-(192, 'Brunei')
-(193, 'Nauru')
-(193, 'Pakistan')
-(194, 'Vanuatu')
-(195, 'Somalia')
-(196, 'Taiwan')
-(197, 'Samoa')
-(198, 'Kiribati')
-(199, 'Vatican City')
+Developement settings activated
+['1', ' Belgium']
+updated Belgium
+['2', ' Brazil']
+updated Brazil
+['3', ' France']
+updated France
+['4', ' England']
+updated England
+['5', ' Portugal']
+updated Portugal
+['6', ' Germany']
+updated Germany
+['7', ' Spain']
+updated Spain
+['8', ' Argentina']
+updated Argentina
+['9', ' Croatia']
+updated Croatia
+['10', ' Chile']
+updated Chile
+['11', ' Denmark']
+updated Denmark
+['12', ' Uruguay']
+updated Uruguay
+['13', ' Switzerland']
+updated Switzerland
+['14', ' Colombia']
+updated Colombia
+['15', ' Wales']
+updated Wales
+['16', ' Netherlands']
+updated Netherlands
+['17', ' United States']
+updated United States
+['18', ' Mexico']
+updated Mexico
+['19', ' Italy']
+updated Italy
+['20', ' Czech Republic']
+updated Czech Republic
+['21', ' Poland']
+updated Poland
+['22', ' Senegal']
+updated Senegal
+['23', ' Austria']
+updated Austria
+['24', ' Democratic Republic of the Congo']
+updated Democratic Republic of the Congo
+['25', ' Serbia']
+updated Serbia
+['26', ' "Côte dIvoire"']
+no nation found
+ "Côte dIvoire"
+['27', ' Iran']
+updated Iran
+['28', ' Tunisia']
+updated Tunisia
+['29', ' Ecuador']
+updated Ecuador
+['30', ' Greece']
+updated Greece
+['31', ' Ireland']
+updated Ireland
+['32', ' Peru']
+updated Peru
+['34', ' Nigeria']
+updated Nigeria
+['35', ' Algeria']
+updated Algeria
+['36', ' Turkey']
+updated Turkey
+['37', ' Sweden']
+updated Sweden
+['38', ' Russia']
+updated Russia
+['39', ' Iceland']
+updated Iceland
+['40', ' Hungary']
+updated Hungary
+['41', ' Australia']
+updated Australia
+['42', ' Honduras']
+updated Honduras
+['43', ' Paraguay']
+updated Paraguay
+['44', ' Costa Rica']
+updated Costa Rica
+['45', ' Israel']
+updated Israel
+['46', ' Finland']
+updated Finland
+['47', ' Republic of the Congo']
+updated Republic of the Congo
+['48', ' Egypt']
+updated Egypt
+['49', ' Bosnia and Herzegovina']
+updated Bosnia and Herzegovina
+['50', ' Slovenia']
+updated Slovenia
+['51', ' Jamaica']
+updated Jamaica
+['52', ' Cameroon']
+updated Cameroon
+['53', ' Japan']
+updated Japan
+['54', ' Ghana']
+updated Ghana
+['55', ' Qatar']
+updated Qatar
+['56', ' Guinea']
+updated Guinea
+['57', ' Burkina Faso']
+updated Burkina Faso
+['58', ' Kosovo']
+updated Kosovo
+['59', ' Canada']
+updated Canada
+['60', ' Morocco']
+updated Morocco
+['61', ' Scotland']
+updated Scotland
+['62', ' Bulgaria']
+updated Bulgaria
+['63', ' Liberia']
+updated Liberia
+['64', ' Lithuania']
+updated Lithuania
+['65', ' Luxembourg']
+updated Luxembourg
+['66', ' Albania']
+updated Albania
+['67', ' Saudi Arabia']
+updated Saudi Arabia
+['68', ' Ukraine']
+updated Ukraine
+['69', ' Slovakia']
+updated Slovakia
+['70', ' Mali']
+updated Mali
+['71', ' Malta']
+updated Malta
+['72', ' El Salvador']
+updated El Salvador
+['73', ' South Korea']
+updated South Korea
+['74', ' Panama']
+updated Panama
+['75', ' Bolivia']
+updated Bolivia
+['76', ' Syria']
+updated Syria
+['77', ' Romania']
+updated Romania
+['78', ' Northern Ireland']
+updated Northern Ireland
+['79', ' Zambia']
+updated Zambia
+['80', ' Iraq']
+updated Iraq
+['81', ' China']
+updated China
+['82', ' United Arab Emirates']
+updated United Arab Emirates
+['83', ' Georgia']
+updated Georgia
+['84', ' Benin']
+updated Benin
+['85', ' Cabo Verde']
+updated Cabo Verde
+['86', ' Belarus']
+updated Belarus
+['87', ' Moldova']
+updated Moldova
+['88', ' Madagascar']
+updated Madagascar
+['89', ' Malawi']
+updated Malawi
+['90', ' Mozambique']
+updated Mozambique
+['91', ' Namibia']
+updated Namibia
+['92', ' Uzbekistan']
+updated Uzbekistan
+['93', ' Kuwait']
+updated Kuwait
+['94', ' Cyprus']
+updated Cyprus
+['95', ' Montenegro']
+updated Montenegro
+['96', ' Nicaragua']
+updated Nicaragua
+['97', ' Estonia']
+updated Estonia
+['98', ' Bahrain']
+updated Bahrain
+['99', ' Armenia']
+updated Armenia
+['100', ' Mongolia']
+updated Mongolia
+['101', ' Niger']
+updated Niger
+['102', ' Guinea-Bissau']
+updated Guinea-Bissau
+['103', ' North Macedonia']
+updated North Macedonia
+['104', ' Norway']
+updated Norway
+['105', ' India']
+updated India
+['106', ' Kenya']
+updated Kenya
+['107', ' Jordan']
+updated Jordan
+['108', ' Comoros']
+updated Comoros
+['109', ' Azerbaijan']
+updated Azerbaijan
+['110', ' Latvia']
+updated Latvia
+['111', ' North Korea']
+updated North Korea
+['112', ' Oman']
+updated Oman
+['113', ' Palau']
+updated Palau
+['114', ' Mauritania']
+updated Mauritania
+['115', ' Sierra Leone']
+updated Sierra Leone
+['116', ' Thailand']
+updated Thailand
+['117', ' Kyrgyzstan']
+updated Kyrgyzstan
+['118', ' Gabon']
+updated Gabon
+['119', ' Central African Republic']
+updated Central African Republic
+['120', ' New Zealand']
+updated New Zealand
+['121', ' Libya']
+updated Libya
+['122', ' Dominican Republic']
+updated Dominican Republic
+['123', ' Angola']
+updated Angola
+['124', ' Philippines']
+updated Philippines
+['125', ' Gambia']
+updated Gambia
+['126', ' Antigua and Barbuda']
+updated Antigua and Barbuda
+['127', ' Kazakhstan']
+updated Kazakhstan
+['128', ' Saint Lucia']
+updated Saint Lucia
+['129', ' Guatemala']
+updated Guatemala
+['130', ' Andorra']
+updated Andorra
+['131', ' Tanzania']
+updated Tanzania
+['132', ' Liechtenstein']
+updated Liechtenstein
+['133', ' San Marino']
+updated San Marino
+['134', ' Burundi']
+updated Burundi
+['135', ' Rwanda']
+updated Rwanda
+['136', ' Equatorial Guinea']
+updated Equatorial Guinea
+['137', ' Ethiopia']
+updated Ethiopia
+['138', ' Sao Tome and Principe']
+updated Sao Tome and Principe
+['139', ' Cuba']
+updated Cuba
+['140', ' Myanmar']
+updated Myanmar
+['141', ' Eswatini']
+updated Eswatini
+['142', ' Lebanon']
+updated Lebanon
+['143', ' Afghanistan']
+updated Afghanistan
+['144', ' Lesotho']
+updated Lesotho
+['145', ' South Africa']
+updated South Africa
+['146', ' South Sudan']
+updated South Sudan
+['147', ' Botswana']
+updated Botswana
+['148', ' Sri Lanka']
+updated Sri Lanka
+['149', ' Sudan']
+updated Sudan
+['150', ' Suriname']
+updated Suriname
+['151', ' Haiti']
+updated Haiti
+['152', ' Saint Vincent and the Grenadines']
+updated Saint Vincent and the Grenadines
+['153', ' Tajikistan']
+updated Tajikistan
+['154', ' Saint Kitts and Nevis']
+updated Saint Kitts and Nevis
+['155', ' Laos']
+updated Laos
+['156', ' Chad']
+updated Chad
+['157', ' Singapore']
+updated Singapore
+['158', ' Indonesia']
+updated Indonesia
+['159', ' Timor-Leste']
+updated Timor-Leste
+['160', ' Barbados']
+updated Barbados
+['161', ' Dominica']
+updated Dominica
+['162', ' Solomon Islands']
+updated Solomon Islands
+['163', ' Togo']
+updated Togo
+['164', ' Tonga']
+updated Tonga
+['165', ' Trinidad and Tobago']
+updated Trinidad and Tobago
+['166', ' Guyana']
+updated Guyana
+['167', ' Malaysia']
+updated Malaysia
+['168', ' Maldives']
+updated Maldives
+['169', ' Fiji']
+updated Fiji
+['170', ' Turkmenistan']
+updated Turkmenistan
+['171', ' Tuvalu']
+updated Tuvalu
+['172', ' Uganda']
+updated Uganda
+['173', ' Cambodia']
+updated Cambodia
+['174', ' Mauritius']
+updated Mauritius
+['175', ' Belize']
+updated Belize
+['176', ' Marshall Islands']
+updated Marshall Islands
+['177', ' Micronesia']
+updated Micronesia
+['178', ' Grenada']
+updated Grenada
+['179', ' Papua New Guinea']
+updated Papua New Guinea
+['180', ' Venezuela']
+updated Venezuela
+['181', ' Nepal']
+updated Nepal
+['182', ' Bahamas']
+updated Bahamas
+['183', ' Seychelles']
+updated Seychelles
+['184', ' Vietnam']
+updated Vietnam
+['185', ' Djibouti']
+updated Djibouti
+['186', ' Bhutan']
+updated Bhutan
+['187', ' Bangladesh']
+updated Bangladesh
+['188', ' Yemen']
+updated Yemen
+['189', ' Eritrea']
+updated Eritrea
+['190', ' Zimbabwe']
+updated Zimbabwe
+['191', ' Monaco']
+updated Monaco
+['192', ' Brunei']
+updated Brunei
+['193', ' Nauru']
+updated Nauru
+['193', ' Pakistan']
+updated Pakistan
+['194', ' Vanuatu']
+updated Vanuatu
+['195', ' Somalia']
+updated Somalia
+['196', ' Taiwan']
+updated Taiwan
+['197', ' Samoa']
+updated Samoa
+['198', ' Kiribati']
+updated Kiribati
+['199', ' Vatican City']
+updated Vatican City

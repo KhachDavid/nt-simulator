@@ -450,6 +450,78 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 django.setup()
 from base.models import *
 
+def create_player(first_name, last_name, country_name):
+    d, created = Player.objects.get_or_create(
+                    name=first_name,
+                    last_name=last_name,
+                    # random position
+                    position=random.choice(
+                        ['GK', 'CB', 'CB', 'LB', 'RB', 'DM', 'CM', 'LM', 'RM', 'AM', 'ST', 'ST', 'CF']),
+                    nation=Nation.objects.get(name=country_name),
+                    # random age with certain distribution
+                    birth_year=random.choices(
+                        population=[1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998,
+                                    1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008],
+                        weights=[
+                            # 19 probabilities must add up to 1
+                            0.06, 0.11, 0.01, 0.03, 0.15, 0.02, 0.05, 0.13, 0.07, 0.04, 0.12, 0.09, 0.08, 0.05, 0.02, 0.07, 0.06, 0.04, 0.03
+                        ],
+                        k=1
+                    )[0],
+                    height=random.choices(
+                        population=[150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174,
+                                    175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200],
+                        weights=# distribute from 150 to 200 must add up to 1
+                        [0.006, 0.008, 0.013, 0.02, 0.03, 0.043, 0.058, 0.073, 0.088, 0.099, 0.106, 0.107, 0.102, 0.093, 0.081, 0.068, 0.054, 0.041, 0.03, 0.021, 0.014, 0.009, 0.005, 0.003, 0.002, 0.002,
+                            0.003, 0.005, 0.009, 0.014, 0.021, 0.03, 0.041, 0.054, 0.068, 0.081, 0.093, 0.102, 0.107, 0.106, 0.099, 0.088, 0.073, 0.058, 0.043, 0.03, 0.02, 0.013, 0.008, 0.004, 0.002],
+                        k=1
+                    )[0],
+                    weight=random.choices(
+                        population=[50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73,
+                                    74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100],
+                        weights=# distribute from 50 to 100 must add up to 1
+                        [0.006, 0.008, 0.013, 0.02, 0.03, 0.043, 0.058, 0.073, 0.088, 0.099, 0.106, 0.107, 0.102, 0.093, 0.081, 0.068, 0.054, 0.041, 0.03, 0.021, 0.014, 0.009, 0.005, 0.003, 0.002, 0.002,
+                            0.003, 0.005, 0.009, 0.014, 0.021, 0.03, 0.041, 0.054, 0.068, 0.081, 0.093, 0.102, 0.107, 0.106, 0.099, 0.088, 0.073, 0.058, 0.043, 0.03, 0.02, 0.013, 0.008, 0.004, 0.002],
+                        k=1
+                    )[0],
+                    political_alignment=random.choices(
+                        population=['left', 'center', 'right'],
+                        weights=[0.4, 0.4, 0.2],
+                        k=1
+                    )[0],
+                    pc_level=random.choices(
+                        population=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                        weights=[0.015, 0.078, 0.132, 0.382, 0.228,
+                                 0.145, 0.045, 0.009, 0.001, 0.1, 0.1],
+                        k=1
+                    )[0],
+                    best_quality=random.choices(
+                        # - PranksterLevel - Confidence - Aggression - Discipline- Sportsmanship - Wealth - DadJokeAptitud
+                        population=['Prankster', 'Confident', 'Aggressive',
+                                    'Disciplined', 'Neutral', 'Wealthy', 'Hilarious'],
+                        weights=[0.068, 0.254, 0.426,
+                                 0.254, 0.068, 0.009, 0.001],
+                        k=1
+                    )[0],
+                    worst_quality=random.choices(
+                        # - PranksterLevel - Confidence - Aggression - Discipline- Sportsmanship - Wealth - DadJokeAptitud
+                        population=['Prankster', 'Confident', 'Aggressive',
+                                    'Disciplined', 'Neutral', 'Wealthy', 'Hilarious'],
+                        weights=[0.068, 0.254, 0.426,
+                                 0.254, 0.068, 0.009, 0.001],
+                        k=1
+                    )[0],
+                    # twitter followers random within a range
+                    twitter_followers=random.randint(0, 1000000),
+                    is_manager=random.choices(
+                        population=[True, False],
+                        weights=[0.05, 0.95],
+                    )[0],
+                )
+    # loggers
+    print("- Data: {0}, Created: {1}".format(str(d), str(created)))
+
+
 # import from a parent directory
 
 
@@ -795,6 +867,149 @@ def get_country_rankings():
 #
     #            break
 
+def distribute_uk_players():
+    # read United Kingdom_names.txt
+    # each line contains a name
+
+    # get northern ireland, scotland, wales, england
+    england = Nation.objects.get(name="England")
+    scotland = Nation.objects.get(name="Scotland")
+    wales = Nation.objects.get(name="Wales")
+    northern_ireland = Nation.objects.get(name="Northern Ireland")
+
+    nation_lists = [england, scotland, wales, northern_ireland]
+
+    with open('names/United Kingdom_names.txt') as f:
+        # loop oer each nation
+        assignment_for_nations = []
+
+        for nation in nation_lists:
+            # get 1% of the population
+            population = nation.population
+            population = int(population)
+            population = population / 1000
+
+            # do from 0 to population or if it is not the first nation do from previous nation population to population
+            # if there are no more lines in the file break
+            # get the line
+            # create a player with the name of the line
+            # assign the player to the nation
+            # save the player
+
+            # determine which lines
+            if nation == nation_lists[0]:
+                start = 0
+                end = population
+                assignment_for_nations.append((start, end, nation.name))
+            else:
+                start = end
+                end = start + population
+                assignment_for_nations.append((start, end, nation.name))
+        
+        # loop over each assignment
+        for assignment in assignment_for_nations:
+            # loop over the lines
+            for i, line in enumerate(f):
+                # if the line is in the assignment
+                if i >= assignment[0] and i < assignment[1]:
+                    # create a player with the name of the line
+                    # get player name last name from line
+                    line = line.split()
+                    first_name = line[0]
+
+                    # chain last name if more than one
+                    last_name = ""
+                    for name in line[1:]:
+                        last_name += name + " "
+                    
+                    # remove last space
+                    last_name = last_name[:-1]
+
+                    # create player
+                    create_player(first_name, last_name, assignment[2])
+                else:
+                    break
+
+
+def england_to_northern_ireland():
+    # get northern ireland, scotland, wales, england
+    # get 500 players from england
+    england = Nation.objects.get(name="England")
+
+    northern_ireland = Nation.objects.get(name="Northern Ireland")
+
+    # get the players from england
+    england_players = Player.objects.filter(nation=england)[:500]
+
+    # loop over the players
+    # 500 players only 
+    for player in england_players:
+        # assign the player to northern ireland
+
+        # write player name to file
+        with open('names/england_to_northern_ireland.txt', 'a') as f:
+            f.write(player.name + "\n")
+
+        player.nation = northern_ireland
+        player.save()
+
+def england_to_wales():
+    # get northern ireland, scotland, wales, england
+    # get 1000 players from england
+    england = Nation.objects.get(name="England")
+    wales = Nation.objects.get(name="Wales")
+
+    # get the players from england
+    england_players = Player.objects.filter(nation=england)[:1000]
+
+    # loop over the players
+    # 1000 players only
+    for player in england_players:
+        # assign the player to wales
+
+        # write player name to file
+        with open('names/england_to_wales.txt', 'a') as f:
+            f.write(player.name + "\n")
+
+        player.nation = wales
+        player.save()
+
+def england_to_scotland():
+    # get northern ireland, scotland, wales, england
+    # get 1000 players from england
+    england = Nation.objects.get(name="England")
+    scotland = Nation.objects.get(name="Scotland")
+
+    # get the players from england
+    england_players = Player.objects.filter(nation=england)[:1000]
+
+    # loop over the players
+    # 1000 players only
+    for player in england_players:
+        # assign the player to scotland
+
+        # write player name to file
+        with open('names/england_to_scotland.txt', 'a') as f:
+            f.write(player.name + "\n")
+
+        player.nation = scotland
+        player.save()
+
+def check_england_duplicates():
+    # find all players from england
+    england = Nation.objects.get(name="England")
+    england_players = Player.objects.filter(nation=england)
+    dupes = []
+    # find any players whose attributes are the same
+    # loop over the players
+    for player in england_players:
+        for player2 in england_players:
+            if player != player2:
+                if player.name == player2.name and player.last_name == player2.last_name and player.birth_year == player2.birth_year and player.height == player2.height and player.weight == player2.weight and player.position == player2.position:
+                    dupes.append(player)
+
+    print(dupes)
+
 def insert_country_rankings():
     # read RedRun file
     # each line contains this (177, 'Micronesia')
@@ -1007,7 +1222,7 @@ def insert_country_rankings():
     #(197, 'Samoa')
     #(198, 'Kiribati')
     #(199, 'Vatican City')
-    with open('RedRun', 'r') as f:  
+    with open('RedRun copy', 'r') as f:  
         lines = f.readlines()
         for line in lines:
             # remove ( )
@@ -1036,6 +1251,11 @@ def main():
     # check_players()
     # check_countries()
     # split_uk()
+    # distribute_uk_players()
+    # england_to_northern_ireland()
+    # england_to_wales()
+    # england_to_scotland()
+    # check_england_duplicates()
     insert_country_rankings()
 
     # check if main

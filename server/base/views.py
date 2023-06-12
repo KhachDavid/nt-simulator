@@ -90,3 +90,6 @@ def continents(request):
 
     # return the continents list as a json response
     return JsonResponse(continents_list, safe=False)
+
+def home(request):
+    return render(request, 'base/index.html')

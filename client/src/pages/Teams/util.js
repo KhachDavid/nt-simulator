@@ -1,5 +1,7 @@
 export function getCountryFlag(nation) {
   switch (nation) {
+    case "Afghanistan":
+      return "🇦🇫";
     case "Algeria":
       return "🇩🇿";
     case "Albania":

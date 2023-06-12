@@ -25,7 +25,7 @@ import {
   getContinentsRequest,
 } from "../../store/actions/nation.action";
 import Pagination from "../../components/Pagination";
-import { Typography } from "@mui/material";
+import { Tooltip, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import EnhancedTable from "../../components/EnhancedTable";
 import { getCharactersFromString } from "./util";
@@ -128,45 +128,57 @@ export const Teams = (props) => {
         }}
       >
         {props.continents.map((continent) => (
-          <button
+          <Tooltip
+            // make the tooltip show that user can click to un/select
+            title={
+              continentFilter === continent
+                ? "Click to deselect"
+                : "Click to select"
+            }
             key={continent}
-            onClick={() => {
-              if (continentFilter === continent) {
-                setContinentFilter("All");
-                setCurrentPage(1);
-                return;
-              }
-              // set the filter
-              setCurrentPage(1);
-              setContinentFilter(continent);
-            }}
-            style={{
-              backgroundColor:
-                continentFilter === continent ? "#3f51b5" : "#FFF",
-              color: continentFilter === continent ? "#FFF" : "#3f51b5",
-              border: "1px solid #3f51b5",
-              borderRadius: "5px",
-              // make them bigger
-              padding: "8px 16px",
-              // make them bold
-              fontWeight: "bold",
-
-              "&:hover": {
-                backgroundColor: "#3f51b5",
-                color: "#FFF",
-                
-                // change the mouse to pointer
-                cursor: "pointer",
-                position: "relative",
-              },
-
-              "&:focus": {
-                outline: "none",
-              },
-            }}
+            // add position to make the tooltip show on top of the button
+            placement="top"
           >
-            {continent}
-          </button>
+            <button
+              key={continent}
+              onClick={() => {
+                if (continentFilter === continent) {
+                  setContinentFilter("All");
+                  setCurrentPage(1);
+                  return;
+                }
+                // set the filter
+                setCurrentPage(1);
+                setContinentFilter(continent);
+              }}
+              style={{
+                backgroundColor:
+                  continentFilter === continent ? "#3f51b5" : "#FFF",
+                color: continentFilter === continent ? "#FFF" : "#3f51b5",
+                border: "1px solid #3f51b5",
+                borderRadius: "5px",
+                // make them bigger
+                padding: "8px 16px",
+                // make them bold
+                fontWeight: "bold",
+
+                "&:hover": {
+                  backgroundColor: "#3f51b5",
+                  color: "#FFF",
+
+                  // change the mouse to pointer
+                  cursor: "pointer",
+                  position: "relative",
+                },
+
+                "&:focus": {
+                  outline: "none",
+                },
+              }}
+            >
+              {continent}
+            </button>
+          </Tooltip>
         ))}
       </div>
 

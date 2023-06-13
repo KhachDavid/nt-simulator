@@ -1245,6 +1245,19 @@ def insert_country_rankings():
                 print('no nation found')
                 print(line[1])
 
+def insert_player_ratings():
+    # get all players
+    players = Player.objects.all()
+    # get all ratings
+    count = 0
+    for player in players:
+        player_rating = player.calculate_rating()
+        # create player rating
+        player.rating = player_rating
+        player.save()
+        count += 1
+        print(f'{count}.updated {player.name} rating to {player.rating}')
+
 def main():
     # insert_nations(nations_fifa)
     # insert_players()
@@ -1256,8 +1269,9 @@ def main():
     # england_to_wales()
     # england_to_scotland()
     # check_england_duplicates()
-    insert_country_rankings()
+    # insert_country_rankings()
+    # insert_player_ratings() #TODO run monthly
+    insert_player_ratings()
 
-    # check if main
 if __name__ == '__main__':
     main()

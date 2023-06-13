@@ -36,12 +36,7 @@ def players(request, nation):
     # get the nation
     nation = Nation.objects.get(name=nation)
     # get the players for the nation
-    players = Player.objects.filter(nation=nation)
-
-    # sort the players by their overall rating
-    # but overall rating is not a field in the database
-    # so we need to sort the players in python
-    players = sorted(players, key=lambda player: player.calculate_rating(), reverse=True)
+    players = Player.objects.filter(nation=nation).order_by('-rating')
 
     # create a paginator object with the players queryset and the requested page size
     paginator = Paginator(players, request.GET.get('pageSize', 10))

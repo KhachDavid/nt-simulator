@@ -98,17 +98,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='PlayerTransfer',
-            fields=[
-                ('uid', models.AutoField(primary_key=True, serialize=False)),
-                ('transfer_fee', models.IntegerField()),
-                ('transfer_date', models.DateField()),
-                ('from_team_uid', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='from_team_uid', to='base.nation')),
-                ('player_uid', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='base.player')),
-                ('to_team_uid', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='to_team_uid', to='base.nation')),
-            ],
-        ),
-        migrations.CreateModel(
             name='PlayerAction',
             fields=[
                 ('uid', models.AutoField(primary_key=True, serialize=False)),

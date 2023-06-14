@@ -74,7 +74,7 @@ export function getCountryFlag(nation) {
       return "🇨🇳";
     case "Colombia":
       return "🇨🇴";
-    case "Côte d'Ivoire":
+    case "Ivory Coast":
       return "🇨🇮";
     case "Comoros":
       return "🇰🇲";
@@ -140,7 +140,7 @@ export function getCountryFlag(nation) {
       return "🇬🇹";
     case "Guinea":
       return "🇬🇳";
-    case "Guinea-Bissau":
+    case "Guinea Bissau":
       return "🇬🇼";
     case "Guyana":
       return "🇬🇾";
@@ -349,7 +349,7 @@ export function getCountryFlag(nation) {
       return "🇹🇿";
     case "Thailand":
       return "🇹🇭";
-    case "Timor-Leste":
+    case "Timor Leste":
       return "🇹🇱";
     case "Togo":
       return "🇹🇬";

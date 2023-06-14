@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 import math
+import random
 # Create your models here.
 
 # create a dictionary for player rating caps
@@ -282,11 +283,9 @@ class Nation(models.Model):
             "Rank": self.rank,
             "Country": self.name,
             "Continent": self.continent,
+            "Fan Loyalty": self.fan_loyalty,
             "Population": self.readable_population(),
             "Capital": self.capital,
-            "Political State": self.political_climate,
-            "Corruption Level": self.corruption_level,
-            "Fan Loyalty": self.fan_loyalty,
         }
 
     def __str__(self):
@@ -340,20 +339,16 @@ class Player(models.Model):
         return {
             "uid": self.uid,
             "Name": self.name + " " + self.last_name,
-            "Rating": self.calculate_rating(),
+            "Rating": self.rating,
+            "Best Quality": self.best_quality,
+            "Age": self.get_age(),
             "Goals": self.goals,
             "Assists": self.assists,
             "Position": self.position,
-            "Birth Year": self.birth_year,
+            "Twitter Followers": self.get_twitter_followers(),
             "Club": self.club,
             "Height": self.height,
             "Weight": self.weight,
-            "Political Alignment": self.political_alignment,
-            "Political Correctness Level": self.pc_level,
-            "Best Quality": self.best_quality,
-            "Worst Quality": self.worst_quality,
-            "Twitter Followers": self.twitter_followers,
-            "Is Manager": self.is_manager,
         }
 
     # design functions here
@@ -363,16 +358,16 @@ class Player(models.Model):
     def calculate_rating(self):
         # twitter followers (0 - 10000000) - 62%
         # goals/assists - 7 
-        # country ranking (1-199) - 20%
+        # country ranking (1-199) - 48%
         # birth year (normal distribution) (1980-2010) - 10%     
 
         # twitter followers
         twitter_followers = self.twitter_followers
         twitter_followers_rating = 0
         if twitter_followers < 1000000:
-            twitter_followers_rating = twitter_followers * 0.000062
+            twitter_followers_rating = twitter_followers * 0.000042
         else:
-            twitter_followers_rating = 62
+            twitter_followers_rating = 42
 
         # goals/assists
         goals = self.goals
@@ -383,8 +378,36 @@ class Player(models.Model):
 
         # country ranking
         country_ranking = self.nation.rank
-        country_ranking_rating = max((200 - country_ranking) * 0.1, 20)
 
+        # group countries by 10
+        groups = {
+            "1-10": 41,
+            "11-20": 38,
+            "21-30": 35,
+            "31-40": 31,
+            "41-50": 30,
+            "51-60": 28,
+            "61-70": 26,
+            "71-80": 24,
+            "81-90": 22,
+            "91-100": 18,
+            "101-110": 15,
+            "111-120": 10,
+            "121-130": 5,
+            "131-199": 0,
+        }
+
+        country_ranking_k = 0
+        for key in groups.keys():
+            start_end = key.split("-")
+            start = int(start_end[0])
+            end = int(start_end[1])
+            if country_ranking >= start and country_ranking <= end:
+                country_ranking_k = groups[key]
+                break
+
+        country_ranking_rating = max(5, country_ranking_k)
+                    
         # birth year
         age = self.get_age()
 
@@ -394,6 +417,20 @@ class Player(models.Model):
         # calculate rating
         rating = twitter_followers_rating + goals_assists_rating + \
             country_ranking_rating + birth_year_rating
+
+
+        if self.uid % 1400 == 0: 
+            # skip the player
+            rating += random.randint(5, 10)
+        if self.nation.fan_loyalty == "high":
+            # look if this player is the highest uid in the nation
+            # if he is, then we add 5 to the rating
+            # if he isn't, then we don't do anything
+            # get the highest uid in the nation
+            highest_uid = Player.objects.filter(nation=self.nation).order_by("-uid")[0].uid
+            if self.uid == highest_uid:
+                # some rating between 80 and 90
+                return random.randint(80, 90)
 
         # cap based on position, weight, height, and pc level (range from 0-100 group by 10)
 
@@ -487,7 +524,28 @@ class Player(models.Model):
                 rating = min(rating, value)
                 break
 
-        return int(rating)
+        # nation and twitter followers are not enough
+        # add random penalties for and skip every 2000th player
+
+        # random penalty
+        # really high chance of getting a penalty
+        # 98% chance of getting a penalty
+        # 2% chance of not getting a penalty
+        # if we get a penalty, then we subtract some number between 5 and 10
+        # if we don't get a penalty, then we don't do anything
+
+        # skip every 2000th player
+        # if the uid is divisible by 2000, then we skip the player
+        # if the uid is not divisible by 2000, then we don't do anything
+
+        rating = max(int(rating), 40)
+        # check if there is already more than 5 players in the nation with the same rating
+        # if there is, then we subtract 1 from the rating 
+        # if there isn't, then we don't do anything
+        # get the number of players in the nation with the same rating
+
+
+        return rating
 
     def get_age(self):
         today = datetime.date.today()
@@ -502,10 +560,10 @@ class Player(models.Model):
     def get_twitter_followers(self):
         # return in millions if followers > 1 million
         if self.twitter_followers > 1000000:
-            return str(self.twitter_followers/1000000 + "M")
+            return str(int(self.twitter_followers/1000000)) + "M"
 
         elif self.twitter_followers > 1000:
-            return str(self.twitter_followers/1000 + "K")
+            return str(int(self.twitter_followers/1000)) + "K"
 
         else:
             return self.twitter_followers

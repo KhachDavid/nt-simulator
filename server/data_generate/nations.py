@@ -1250,13 +1250,147 @@ def insert_player_ratings():
     players = Player.objects.all()
     # get all ratings
     count = 0
+    lst = []
     for player in players:
         player_rating = player.calculate_rating()
         # create player rating
-        player.rating = player_rating
-        player.save()
+        # player.rating = player_rating
+        # player.save()
         count += 1
-        print(f'{count}.updated {player.name} rating to {player.rating}')
+        lst.append((player.name, player_rating, player.nation.name))
+
+    # sort lst by rating and group by nation
+    lst.sort(key=lambda x: x[1], reverse=True)
+
+    # print top 50 for each nation
+    for nation in Nation.objects.all():
+        print(nation.name)
+        nation_players = [player for player in lst if player[2] == nation.name]
+        
+        # save playres to db
+        for nation_player in nation_players:
+            player = Player.objects.filter(name=nation_player[0]).first()
+            player.rating = nation_player[1]
+            player.save()
+            print(nation_player)
+
+        # choose a random number between 2-5
+        # loop reverse from 94 to 85
+        for i in range(94, 84, -1):
+            # find players with rating i
+            players = [player for player in nation_players if player[1] == i]
+            # choose a random number between 2-5
+            num = random.randint(1, 4)
+
+            # if there are random number of players with rating i
+            if len(players) >= num:
+                # decrease players rating by 1 until num is reached
+                for player in players:
+                    if num > 0:
+                        player = Player.objects.filter(name=player[0]).first()
+                        player.rating = i - 1
+                        player.save()
+                        num -= 1
+                        print(player)
+                    else:
+                        break
+
+        print('\n')
+
+def get_player_ratings():
+    # get all players
+    nations = Nation.objects.all()
+    for nation in nations:
+        players = Player.objects.filter(nation=nation).order_by('-rating')
+        print(nation.name)
+
+        for player in players:
+            print(player.name, player.rating)
+        print('\n')
+
+def adjust_player_ratings():
+    # get top 50 players for each nation
+    nations = Nation.objects.all()
+    for nation in nations:
+        # get all players above 81 rating
+        # loop from 99 to 81 reverse and get all players with rating i
+        players = Player.objects.filter(nation=nation).order_by('-rating')
+        for i in range(99, 80, -1):
+            players = Player.objects.filter(nation=nation, rating=i)
+            # choose a random number between 2-5
+            num = random.randint(1, 4)
+
+            # if there are random number of players with rating i
+            if len(players) >= num:
+                # find difference between len and num and delete that many players
+                diff = len(players) - num
+                for player in players:
+                    if diff > 0:
+                        player.delete()
+                        diff -= 1
+                        print(player)
+                    else:
+                        break
+
+def remove_too_many_top_players_rank_20():
+    # find all the nations that are behing rank 20 included
+    # these nations can have only one player with rating bigger than 85. so only keep one random player with rating bigger than 85
+    nations = Nation.objects.filter(rank__gte=20)
+    for nation in nations:
+        players = Player.objects.filter(nation=nation, rating__gt=85)
+        num = len(players)
+        if num > 1:
+            # choose a random player and delete all the others
+            random_player = random.choice(players)
+            players = Player.objects.filter(nation=nation, rating__gt=85).exclude(name=random_player.name)
+            for player in players:
+                player.delete()
+                print(player)
+
+def remove_too_many_top_players_rank_50():
+    # find all the nations that are behing rank 50 included
+    # these nations can have only two players with rating bigger than 85. so only keep two random players with rating bigger than 85
+    nations = Nation.objects.filter(rank__gte=50)
+    for nation in nations:
+        players = Player.objects.filter(nation=nation, rating__gt=78)
+        num = len(players)
+        if num > 2:
+            # choose a random player and delete all the others
+            random_players = random.sample(list(players), 2)
+            players = Player.objects.filter(nation=nation, rating__gt=78).exclude(name__in=[player.name for player in random_players])
+            for player in players:
+                player.delete()
+                print(player)
+
+def purge_keepers():
+    # find the top 50 players from each nation 
+    # if more than two players are keepers, delete the rest
+    nations = Nation.objects.all()
+    for nation in nations:
+        players = Player.objects.filter(nation=nation).order_by('-rating')
+        keepers = Player.objects.filter(nation=nation, position='GK').order_by('-rating')
+        if len(keepers) > 2:
+            # delete all keepers except the top 2
+            keepers = Player.objects.filter(nation=nation, position='GK').order_by('-rating')[2:]
+            for keeper in keepers:
+                keeper.delete()
+                print(keeper)
+
+def dm_to_cdm():
+    # get all players with position DM
+    players = Player.objects.filter(position='DM')
+    for player in players:
+        player.position = 'CDM'
+        player.save()
+        print(player)
+
+def am_to_cam():
+    # get all players with position AM
+    players = Player.objects.filter(position='AM')
+    for player in players:
+        player.position = 'CAM'
+        player.save()
+        print(player)
 
 def main():
     # insert_nations(nations_fifa)
@@ -1271,7 +1405,14 @@ def main():
     # check_england_duplicates()
     # insert_country_rankings()
     # insert_player_ratings() #TODO run monthly
-    insert_player_ratings()
+    # insert_player_ratings()
+    # get_player_ratings()
+    # adjust_player_ratings()
+    # remove_too_many_top_players_rank_20()
+    # remove_too_many_top_players_rank_50()
+    # purge_keepers()
+    am_to_cam()
+    dm_to_cdm()
 
 if __name__ == '__main__':
     main()

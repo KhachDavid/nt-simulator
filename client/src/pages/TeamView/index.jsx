@@ -36,7 +36,7 @@ export const TeamView = (props) => {
 
   // on unmount, reset the current page to 1
   useEffect(() => {
-    dispatch(fetchPaginatedResultsRequest(teamId, page));
+    dispatch(fetchPaginatedResultsRequest(selectedTeam, page));
 
     return () => {
       dispatch(resetPlayers());

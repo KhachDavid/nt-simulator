@@ -55,12 +55,7 @@ export const Teams = (props) => {
     let actualNation = getCharactersFromString(nation.Country);
 
     // make nation country be actualNation
-    nation.Country = actualNation;
-
-    dispatch(fetchPaginatedResultsRequest(actualNation, 1));
-    navigate("/teams/" + actualNation, {
-      state: { team: nation },
-    });
+    navigate("/teams/" + actualNation);
   };
 
   const handlePageClick = (event, page) => {

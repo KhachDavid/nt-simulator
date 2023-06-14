@@ -1,0 +1,90 @@
+.breadcrumbs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+    padding: 1rem 1rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #fff;
+    border-radius: 0.25rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    .breadcrumb {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        .breadcrumb-item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            .breadcrumb-link {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                color: #fff;
+                text-decoration: none;
+                &:hover {
+                    color: #fff;
+                    text-decoration: none;
+                }
+                &:focus {
+                    color: #fff;
+                    text-decoration: none;
+                }
+                &:active {
+                    color: #fff;
+                    text-decoration: none;
+                }
+                &:visited {
+                    color: #fff;
+                    text-decoration: none;
+                }
+                &:link {
+                    color: #fff;
+                    text-decoration: none;
+                }
+                .breadcrumb-icon {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: flex-start;
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+                    margin-right: 0.5rem;
+                    font-size: 1.25rem;
+                    color: #fff;
+                }
+                .breadcrumb-text {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: flex-start;
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+                }
+            }
+        }
+    }
+}
+
+.select-input {
+    margin: 1rem 0;
+}

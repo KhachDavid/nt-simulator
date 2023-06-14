@@ -1,4 +1,5 @@
 import React, { lazy, useEffect } from "react";
+
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { FabllbackProvider } from "./components/FallbackProvider";

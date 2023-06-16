@@ -11,6 +11,9 @@ export const RESET_PLAYERS = "RESET_PLAYERS";
 export const GET_CONTINENTS_REQUEST = "GET_CONTINENTS_REQUEST";
 export const GET_CONTINENTS_SUCCESS = "GET_CONTINENTS_SUCCESS";
 export const GET_CONTINENTS_FAILURE = "GET_CONTINENTS_FAILURE";
+export const SEND_REPORT_REQUEST = "SEND_REPORT_REQUEST";
+export const SEND_REPORT_SUCCESS = "SEND_REPORT_SUCCESS";
+export const SEND_REPORT_FAILURE = "SEND_REPORT_FAILURE";
 
 export const getNationsRequest = () => ({
   type: GET_NATIONS_REQUEST,
@@ -57,4 +60,19 @@ export const getContinentsFailure = () => ({
 
 export const resetPlayers = () => ({
   type: RESET_PLAYERS,
+});
+
+export const sendReportRequest = (data) => ({
+  type: SEND_REPORT_REQUEST,
+  payload: data,
+});
+
+export const sendReportSuccess = (response) => ({
+  type: SEND_REPORT_SUCCESS,
+  payload: response,
+});
+
+export const sendReportFailure = (error) => ({
+  type: SEND_REPORT_FAILURE,
+  payload: error,
 });

@@ -6,3 +6,4 @@ export const getNumPages = (state) => state.nation.num_pages;
 export const getHasNext = (state) => state.nation.has_next;
 export const getHasPrev = (state) => state.nation.has_prev;
 export const getCurrentPage = (state) => state.nation.curr_page;
+export const getReportResult = (state) => state.nation.reportResult;

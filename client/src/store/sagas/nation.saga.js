@@ -1,8 +1,9 @@
-import { call, put, takeLatest, all } from "redux-saga/effects";
+import { call, put, takeLatest, all, delay } from "redux-saga/effects";
 import {
   getNations,
   getPlayersFromNation,
   getContinents,
+  sendReport,
 } from "../../api/nation.api";
 import {
   GET_NATIONS_REQUEST,
@@ -14,6 +15,9 @@ import {
   GET_CONTINENTS_REQUEST,
   GET_CONTINENTS_SUCCESS,
   GET_CONTINENTS_FAILURE,
+  SEND_REPORT_REQUEST,
+  SEND_REPORT_SUCCESS,
+  SEND_REPORT_FAILURE,
 } from "../actions/nation.action.js";
 import { getCountryFlag } from "../../pages/Teams/util";
 
@@ -65,6 +69,20 @@ function* fetchPaginatedResults(action) {
   }
 }
 
+function* sendReportRequestWorker(action) {
+  const data = action.payload;
+  try {
+    const response = yield call(sendReport, data);
+    yield put({ type: SEND_REPORT_SUCCESS, payload: response.status === 201 ? "success" : "failure" });
+    yield delay(5000);
+    yield put({ type: SEND_REPORT_SUCCESS, payload: null });
+  } catch (error) {
+    yield put({ type: SEND_REPORT_FAILURE, payload: error });
+    yield delay(5000);
+    yield put({ type: SEND_REPORT_FAILURE, payload: null });
+  }
+}
+
 function* watchFetchPaginatedResults() {
   yield takeLatest(GET_PLAYERS_FROM_NATION_REQUEST, fetchPaginatedResults);
 }
@@ -72,5 +90,6 @@ function* watchFetchPaginatedResults() {
 export default function* () {
   yield takeLatest(GET_NATIONS_REQUEST, getNationsRequestWorker);
   yield takeLatest(GET_CONTINENTS_REQUEST, getContinentsRequestWorker);
+  yield takeLatest(SEND_REPORT_REQUEST, sendReportRequestWorker);
   yield all([watchFetchPaginatedResults()]);
 }

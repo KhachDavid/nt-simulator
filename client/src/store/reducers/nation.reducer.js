@@ -9,6 +9,9 @@ import {
   GET_CONTINENTS_SUCCESS,
   GET_CONTINENTS_FAILURE,
   RESET_PLAYERS,
+  SEND_REPORT_REQUEST,
+  SEND_REPORT_SUCCESS,
+  SEND_REPORT_FAILURE,
 } from "../actions/nation.action";
 
 const initialState = {
@@ -23,6 +26,7 @@ const initialState = {
   curr_page: 1,
   // boolean to check if getPlayersFromNation was successful
   getPlayersSuccess: false,
+  reportResult: null,
 };
 
 export default function nationReducer(state = initialState, action) {
@@ -90,6 +94,26 @@ export default function nationReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
+      };
+
+    case SEND_REPORT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case SEND_REPORT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        reportResult: action.payload,
+      };
+
+    case SEND_REPORT_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        reportResult: action.payload,
       };
 
     default:

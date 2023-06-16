@@ -625,3 +625,12 @@ class PlayerAction(models.Model):
 
     def __str__(self):
         return self.player_uid + " " + self.action_type + " in " + self.game_uid + " at minute '" + self.action_minute
+
+class CriticalReport(models.Model):
+    uid = models.AutoField(primary_key=True)
+    # it takes one json object
+    # we don't know the keys of the json object
+    data = models.JSONField()    
+
+    def __str__(self):
+        return self.data["Name"]

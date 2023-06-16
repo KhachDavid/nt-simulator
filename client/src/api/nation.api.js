@@ -33,3 +33,8 @@ export const getPlayersFromNation = (nation, page) => {
     },
   });
 };
+
+export const sendReport = (data) => {
+  console.log(data);
+  return axios.post(endpoints.main + endpoints.report, data);
+};

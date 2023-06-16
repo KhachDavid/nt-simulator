@@ -1,9 +1,13 @@
+import json
+
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import *
 from django.forms.models import model_to_dict
 from django.views.decorators.http import require_GET
 from django.core.paginator import Paginator
+from django.views.decorators.csrf import csrf_exempt
+
 
 # create an api endpoint for the nations
 def nations(request):
@@ -85,6 +89,31 @@ def continents(request):
 
     # return the continents list as a json response
     return JsonResponse(continents_list, safe=False)
+
+@csrf_exempt
+def report(request):
+    # check the request method
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+
+    # get the data from the request
+    data = json.loads(request.body)
+
+    # create a report object
+    report = CriticalReport(
+        # put the whole json data in the report
+        data=data
+    )
+
+    # save the report object
+    report.save()
+
+    # return a success response
+    return JsonResponse(
+        {
+            "message": "Report submitted successfully.", 
+        }
+    , status=201)
 
 def home(request):
     return render(request, 'base/index.html')

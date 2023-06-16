@@ -5,4 +5,5 @@ export const endpoints = {
     main: process.env.NODE_ENV === "development" ? "http://localhost:8000/api" : "https://api.davidk.tech/api",
     nations: "/nations",
     continents: "/continents",
+    report: "/report",
 };

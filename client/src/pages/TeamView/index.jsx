@@ -1,40 +1,42 @@
 import { Breadcrumbs, Select, MenuItem } from "@mui/material";
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import Navbar from "../../components/NavBar";
 import Page from "../../components/Page";
 import { Link } from "react-router-dom";
-import { getPlayersFromNation } from "../../store/sagas/selectors";
-import { useLocation } from "react-router-dom";
 import {
   getPlayersIsLoading,
+  getPlayersFromNation,
   getHasNext,
   getNumPages,
   getCurrentPage,
   getNations,
+  getReportResult,
 } from "../../store/sagas/selectors";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
   fetchPaginatedResultsRequest,
   resetPlayers,
+  sendReportRequest,
 } from "../../store/actions/nation.action";
 import EnhancedTable from "../../components/EnhancedTable";
 import Pagination from "../../components/Pagination";
-import { getCountryFlag, getCharactersFromString } from "../Teams/util";
+import { getCharactersFromString } from "../Teams/util";
 import "./TeamView.scss";
+import CloseIcon from "@mui/icons-material/Close";
+import ReportIcon from "@mui/icons-material/Report";
+import { Alert } from "@mui/material";
 
 const COLUMN_TO_EXCLUDE = ["uid", "page"];
 
-export const TeamView = (props) => {
-  // get team name from url
+const TeamView = (props) => {
   const dispatch = useDispatch();
-
   const { teamId } = useParams();
   const [page, setPage] = useState(1);
   const [selectedTeam, setSelectedTeam] = useState(teamId);
+  const [activePlayer, setActivePlayer] = useState(null);
 
-  // on unmount, reset the current page to 1
   useEffect(() => {
     dispatch(fetchPaginatedResultsRequest(teamId, page));
 
@@ -43,9 +45,10 @@ export const TeamView = (props) => {
     };
   }, [dispatch, teamId, page]);
 
-  // get players from team
-  // run dispatch(fetchPaginatedResultsRequest(team.name)); in the background
-  // when the user clicks on the pagination buttons
+  const closeActivePlayer = () => {
+    setActivePlayer(null);
+  };
+
   const handlePageClick = (page) => {
     setPage(page);
   };
@@ -57,7 +60,6 @@ export const TeamView = (props) => {
     dispatch(fetchPaginatedResultsRequest(name, page));
   };
 
-  // GET COLUMNS FROM PLAYERS
   const columns =
     props.players.length > 0
       ? Object.keys(props.players[0]).map((key) => {
@@ -71,66 +73,102 @@ export const TeamView = (props) => {
         })
       : [];
 
-  // remove columns that we don't want to show
   columns.forEach((column, index) => {
     if (COLUMN_TO_EXCLUDE.includes(column.id)) {
       columns.splice(index, 1);
     }
   });
 
-  // show all the players that have the page equaling the current page
-  const players = props.players.filter((player) => {
-    // convert player.page to a number
-    // because it is a string when it is fetched from the api
-    let player_page = Number(player.page);
-    return player_page === props.currentPage;
-  });
+  const players = props.players.filter(
+    (player) => Number(player.page) === props.currentPage
+  );
+
+  const onRowClick = (data) => {
+    setActivePlayer(data);
+  };
+
+  const onReportClick = () => {
+    dispatch(sendReportRequest(activePlayer));
+  };
 
   return (
     <Page>
       <Navbar />
-      {/* Add bread crumb */}
       <Breadcrumbs aria-label="breadcrumb" className="breadcrumbs">
         <Link to="/">Home</Link>
         <Link to="/teams">Teams</Link>
       </Breadcrumbs>
+      <div className="team-view-container">
+        <div className="select-container">
+          <Select
+            value={selectedTeam}
+            onChange={handleTeamChange}
+            className="select-input"
+          >
+            {props.nations.map((nation) => (
+              <MenuItem
+                key={nation.Country}
+                value={getCharactersFromString(nation.Country)}
+                selected={nation.Country === selectedTeam}
+              >
+                {nation.Country}
+              </MenuItem>
+            ))}
+          </Select>
+        </div>
 
-      {/* Dropdown for selecting teams */}
-      <Select value={selectedTeam} onChange={handleTeamChange} className="select-input">
-        {props.nations.map((nation) => {
-          return (
-            <MenuItem
-              key={nation.Country}
-              value={getCharactersFromString(nation.Country)}
-              selected={nation.Country === selectedTeam}
-            >
-              {nation.Country}
-            </MenuItem>
-          );
-        })}
-      </Select>
+        <div
+          className={`content-container ${
+            activePlayer ? "split-container" : "full-container"
+          }`}
+        >
+          <div className="table-container">
+            <EnhancedTable
+              rows={players}
+              columns={columns}
+              preSort={true}
+              onRowClick={onRowClick}
+            />
+          </div>
 
-      {/* Show players */}
-      <EnhancedTable rows={players} columns={columns} preSort={true} />
+          {activePlayer && (
+            <div className="active-player-container">
+              <div className="player-header">
+                <button className="close-button" onClick={closeActivePlayer}>
+                  <CloseIcon />
+                </button>
+              </div>
+              <div className="player-stats">
+                <h2>Player Stats</h2>
+                <p>Name: {activePlayer.Name}</p>
+                <p>Age: {activePlayer.Age}</p>
+                <p>Position: {activePlayer.Position}</p>
+                {/* Add more player stats as needed */}
+              </div>
+              <button className="report-button" onClick={onReportClick}>
+                <ReportIcon />
+              </button>
+            </div>
+          )}
+        </div>
 
-      <div
-        style={{
-          position: "sticky",
-          bottom: 0,
-          display: "flex",
-          justifyContent: "center",
-          gap: "16px",
-          py: "16px",
-          backgroundColor: "#FFF",
-        }}
-      >
-        <Pagination
-          page={props.currentPage}
-          totalPages={props.numPages}
-          onChangePage={handlePageClick}
-          rowsPerPage={10}
-        />
+        <div className="pagination-container">
+          <Pagination
+            page={props.currentPage}
+            totalPages={props.numPages}
+            onChangePage={handlePageClick}
+            rowsPerPage={10}
+          />
+        </div>
       </div>
+      {/* If reportResult is not empty show alert */}
+      {props.reportResult && (
+        <div className="alert">
+          <Alert severity={props.reportResult} >
+            {props.reportResult}
+          </Alert>
+        </div>
+      )}
     </Page>
   );
 };
@@ -142,7 +180,7 @@ const mapStateToProps = (state) => ({
   numPages: getNumPages(state),
   currentPage: getCurrentPage(state),
   nations: getNations(state),
-  getNations: getNations(state),
+  reportResult: getReportResult(state),
 });
 
 export default connect(mapStateToProps)(TeamView);

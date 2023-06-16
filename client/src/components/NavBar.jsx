@@ -43,7 +43,7 @@ function Navbar() {
           color="inherit"
           sx={{ borderRadius: 2 }}
         >
-          {location.pathname === "/news" ? (
+          {location.pathname.startsWith("/news") ? (
             <ActiveButton>News</ActiveButton>
           ) : (
             "News"
@@ -55,7 +55,7 @@ function Navbar() {
           color="inherit"
           sx={{ borderRadius: 2 }}
         >
-          {location.pathname === "/teams" ? (
+          {location.pathname.startsWith("/teams") ? (
             <ActiveButton>Teams</ActiveButton>
           ) : (
             "Teams"
@@ -67,7 +67,7 @@ function Navbar() {
           color="inherit"
           sx={{ borderRadius: 2 }}
         >
-          {location.pathname === "/players" ? (
+          {location.pathname.startsWith("/players") ? (
             <ActiveButton>Players</ActiveButton>
           ) : (
             "Players"

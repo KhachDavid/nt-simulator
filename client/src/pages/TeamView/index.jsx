@@ -38,7 +38,7 @@ const TeamView = (props) => {
   const [activePlayer, setActivePlayer] = useState(null);
 
   useEffect(() => {
-    dispatch(fetchPaginatedResultsRequest(teamId, page));
+    dispatch(fetchPaginatedResultsRequest(selectedTeam, page));
 
     return () => {
       dispatch(resetPlayers());

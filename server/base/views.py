@@ -112,6 +112,7 @@ def report(request):
     return JsonResponse(
         {
             "message": "Report submitted successfully.", 
+            "name": data.get("Name", ""),
         }
     , status=201)
 

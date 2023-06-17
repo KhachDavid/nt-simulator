@@ -164,8 +164,8 @@ const TeamView = (props) => {
       {/* If reportResult is not empty show alert */}
       {props.reportResult && (
         <div className="alert">
-          <Alert severity={props.reportResult} >
-            {props.reportResult}
+          <Alert severity={props.reportResult.success ? "success" : "error"} >
+            {props.reportResult.name} reported!
           </Alert>
         </div>
       )}

@@ -73,7 +73,14 @@ function* sendReportRequestWorker(action) {
   const data = action.payload;
   try {
     const response = yield call(sendReport, data);
-    yield put({ type: SEND_REPORT_SUCCESS, payload: response.status === 201 ? "success" : "failure" });
+    console.log(response);
+    yield put({
+      type: SEND_REPORT_SUCCESS,
+      payload: {
+        success: response.status === 201,
+        name: response.data.name,
+      },
+    });
     yield delay(5000);
     yield put({ type: SEND_REPORT_SUCCESS, payload: null });
   } catch (error) {

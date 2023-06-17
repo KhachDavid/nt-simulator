@@ -1,10 +1,11 @@
 const path = require("path");
 const sass = require("sass");
 
+
 module.exports = {
   mode: "development",
   entry: path.resolve(__dirname, "./src/index.js"),
-  devtool: "eval-source-map",
+  devtool: false,
   module: {
     rules: [
       {
@@ -52,5 +53,9 @@ module.exports = {
   devServer: {
     hot: true,
     historyApiFallback: true,
+  },
+  performance: {
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
   },
 };

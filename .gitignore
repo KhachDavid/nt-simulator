@@ -1,5 +1,6 @@
 *.sqlite3
 release.py
+api_davidk_release.py
 bundle.js.LICENSE.txt
 868.bundle.js.LICENSE.txt
 notes

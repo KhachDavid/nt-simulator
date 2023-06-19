@@ -10,7 +10,7 @@ export const Home = (props) => {
     <Page>
       <div>
         <NavBar/>
-        <h1>Home Test</h1>
+        <h1>Home</h1>
       </div>
     </Page>
   );

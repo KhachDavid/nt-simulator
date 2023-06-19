@@ -1,10 +1,11 @@
 from pathlib import Path
+import logging
 import os
 from .installed_apps import *
 from .prod_cors_origins import *
 from django.contrib.staticfiles.views import serve
 
-
+logger = logging.getLogger(__name__)
 print("Production settings loaded")
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # go down 3 levels to get to the root of the project
@@ -105,3 +106,5 @@ MEDIA_ROOT=os.path.join(BASE_DIR, 'media/')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+logger.info('Loaded settings file: %s', __file__)

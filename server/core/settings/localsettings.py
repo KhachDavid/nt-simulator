@@ -1,9 +1,11 @@
 from pathlib import Path
 import os
+import logging
 from .installed_apps import *
 from .cors_origins import *
 from .storage import *
 
+logger = logging.getLogger(__name__)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # go down 3 levels to get to the root of the project
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -99,3 +101,5 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+logger.info('Loaded settings file: %s', __file__)

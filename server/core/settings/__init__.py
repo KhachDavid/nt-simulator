@@ -1,6 +1,6 @@
 import os
 
-if os.environ.get('DJANGO_ENV') == 'production':
+if os.getcwd() == '/mnt/ntprod/server':
     from .settings import *
 else:
     from .localsettings import *

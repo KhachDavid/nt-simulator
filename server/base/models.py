@@ -250,6 +250,7 @@ class Nation(models.Model):
     faker_locale_options = models.CharField(max_length=50, default="")
     conversion_option = models.CharField(max_length=50, default="")
     rank = models.IntegerField(default=0)
+    test_values = models.IntegerField(default=0)
 
     def readable_population(self):
         # based on the population, return a readable string

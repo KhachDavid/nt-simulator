@@ -20,7 +20,7 @@ def nations(request):
     nations_list = []
 
     # nation has a ranking attribute sort by them in ascending order
-    nations = Nation.objects.order_by('rank')
+    nations = Nation.objects.order_by('test_values', 'continent')
 
     # loop through the nations
     for nation in nations:

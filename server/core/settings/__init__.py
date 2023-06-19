@@ -1,6 +1,6 @@
 import os
 
-if os.getcwd() == '/mnt/ntprod/server':
+if 'ntprod' in os.getcwd():
     from .settings import *
 else:
     from .localsettings import *

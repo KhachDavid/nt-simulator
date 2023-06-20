@@ -1,6 +1,6 @@
 import os
 
-if 'ntprod' in os.getcwd():
+if os.environ.get("DJANGO_ENV") == "production":
     from .settings import *
 else:
     from .localsettings import *

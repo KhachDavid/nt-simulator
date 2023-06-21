@@ -1,11 +1,13 @@
 const path = require("path");
 const sass = require("sass");
 
+const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
   mode: "development",
   entry: path.resolve(__dirname, "./src/index.js"),
-  devtool: false,
+  //devtool: process.env.NODE_ENV === "development" ? "eval-source-map" : false,
+  devtool: isProduction ? false : "eval-source-map",
   module: {
     rules: [
       {
@@ -57,5 +59,5 @@ module.exports = {
   performance: {
     maxEntrypointSize: 512000,
     maxAssetSize: 512000
-  },
+  },    
 };

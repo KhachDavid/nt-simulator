@@ -33,8 +33,8 @@
   },
   "scripts": {
     "test": "jest --env=jsdom",
-    "start": "webpack serve --mode development",
-    "build": "webpack --mode production"
+    "start": "NODE_ENV=development webpack serve --mode development",
+    "build": "NODE_ENV=production webpack --mode production"
   },
   "eslintConfig": {
     "extends": [

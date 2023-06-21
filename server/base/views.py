@@ -1,5 +1,6 @@
 import json
-
+import logging
+import time
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import *
@@ -8,9 +9,13 @@ from django.views.decorators.http import require_GET
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 
+logger = logging.getLogger(__name__)
 
 # create an api endpoint for the nations
 def nations(request):
+    # Record the start time
+    start_time = time.time()
+
     # check the request method
     if request.method != "GET":
         return JsonResponse({"error": "GET request required."}, status=400)
@@ -31,12 +36,17 @@ def nations(request):
 
         nations_list.append(nation_frontend_dict)
 
+    # calculate time taken
+    duration = time.time() - start_time
+    logger.info(f"Time taken by /nations/: {duration} seconds")
 
     # return the nations list as a json response
     return JsonResponse(nations_list, safe=False)
 
 @require_GET # only allow GET requests
 def players(request, nation):
+    start_time = time.time()
+
     # get the nation
     nation = Nation.objects.get(name=nation)
     # get the players for the nation
@@ -62,6 +72,9 @@ def players(request, nation):
         # add the player dictionary to the list
         players_list.append(player_dict)
 
+    duration = time.time() - start_time
+    print(f"Time taken by /players/{nation.name}: {duration} seconds")
+
     # return the players list for the current page as a JSON response
     return JsonResponse({
         'results': players_list,
@@ -72,6 +85,8 @@ def players(request, nation):
     })
 
 def continents(request):
+    start_time = time.time()
+
     # check the request method
     if request.method != "GET":
         return JsonResponse({"error": "GET request required."}, status=400)
@@ -86,6 +101,9 @@ def continents(request):
     for continent in continents:
         # add the continent to the continents list
         continents_list.append(continent['continent'])
+
+    duration = time.time() - start_time
+    logger.info(f"Time take by /continents: {duration} seconds")
 
     # return the continents list as a json response
     return JsonResponse(continents_list, safe=False)

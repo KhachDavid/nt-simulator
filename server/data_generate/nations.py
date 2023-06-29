@@ -1391,6 +1391,31 @@ def am_to_cam():
         player.position = 'CAM'
         player.save()
         print(player)
+import langid
+def is_arabic_word(name):
+    lang, confidence = langid.classify(name)
+    return lang != 'ar'
+
+def get_invalid_arabic_names():
+
+    keywords = ["first", "joe", "hello", "david", "and", "eastern", "coastal", "firstname", "jacob", "thank", "john", "success", "presidential", "moroccan", "john", "beautiful", "eastern"]
+    for nation in nations_fifa:
+        conversion_option = nation[-1]
+
+        if conversion_option == "chat_gpt":
+            nation_db = Nation.objects.get(name=nation[0])
+            players = Player.objects.filter(nation=nation_db)
+            for player in players:
+                if not (is_arabic_word(player.name) and is_arabic_word(player.last_name)):
+                    print(f"{player.uid} {player.name} {player.last_name}")
+                    continue
+                for keyword in keywords:
+                    if keyword in player.name.lower() or keyword in player.last_name.lower():
+                        print(f"{player.uid} {player.name} {player.last_name}")
+from django.db.models import F
+def get_unusual_bmi():
+    players = Player.objects.filter(weight__gt=(F('height') / 100) * (F('height') / 100) * 24)
+    print(len(players))
 
 def main():
     # insert_nations(nations_fifa)
@@ -1411,8 +1436,10 @@ def main():
     # remove_too_many_top_players_rank_20()
     # remove_too_many_top_players_rank_50()
     # purge_keepers()
-    am_to_cam()
-    dm_to_cdm()
+    # am_to_cam()
+    # dm_to_cdm()
+    # get_invalid_arabic_names()
+    get_unusual_bmi()
 
 if __name__ == '__main__':
     main()

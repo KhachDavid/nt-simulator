@@ -10,6 +10,11 @@ __pycache__
 venv
 utilities
 
+server/bin/
+server/data_generate/non_arabic_names
+server/lib64
+server/pyvenv.cfg
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

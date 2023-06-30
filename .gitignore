@@ -14,6 +14,7 @@ server/bin/
 server/data_generate/non_arabic_names
 server/lib64
 server/pyvenv.cfg
+server/data_generate/deleted_players
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

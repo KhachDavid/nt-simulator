@@ -1413,9 +1413,29 @@ def get_invalid_arabic_names():
                     if keyword in player.name.lower() or keyword in player.last_name.lower():
                         print(f"{player.uid} {player.name} {player.last_name}")
 from django.db.models import F
-def get_unusual_bmi():
-    players = Player.objects.filter(weight__gt=(F('height') / 100) * (F('height') / 100) * 24)
-    print(len(players))
+def delete_unusual_bmi():
+    players = Player.objects.filter(weight__gt=80, rating__gt=75)
+    for player in players:
+        player_name = player.name
+        player_weight = player.weight
+        print(f"Deleting player: {player_name}, Weight: {player_weight}")
+
+        # Delete the player from the database
+        player.delete()    
+
+def delete_arabic():
+    with open('non_arabic_names', 'r') as file:
+        for line in file:
+            uid, name, last_name = line.strip().split(' ')
+            # Log the UID of the player being deleted
+            print(f"Deleting player with UID: {uid}")
+
+            # Delete the player from the database based on the UID
+            try:
+                player = Player.objects.get(uid=uid)
+                player.delete()
+            except Player.DoesNotExist:
+                print(f"Player with UID {uid} does not exist") 
 
 def main():
     # insert_nations(nations_fifa)
@@ -1439,7 +1459,8 @@ def main():
     # am_to_cam()
     # dm_to_cdm()
     # get_invalid_arabic_names()
-    get_unusual_bmi()
+    # delete_unusual_bmi()
+    # delete_arabic()
 
 if __name__ == '__main__':
     main()

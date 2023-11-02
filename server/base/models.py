@@ -577,6 +577,8 @@ class Season(models.Model):
     def __str__(self):
         return self.description
 
+    
+
 class Game(models.Model):
     uid = models.AutoField(primary_key=True)
     season_uid = models.ForeignKey(Season, on_delete=models.CASCADE)
